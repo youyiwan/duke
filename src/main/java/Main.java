@@ -22,9 +22,9 @@ public class Main {
             }
             else if(line.equalsIgnoreCase("list"))
             {
-                for (List x : mylist) {
-                    if(x ==null) break;
-                    System.out.println(x.toString());
+                for (int i=0; i<mylist.length; i++) {
+                    if(mylist[i] ==null) break;
+                    System.out.println((i+1)+". "+mylist[i].toString());
                 }
             }
             else {
