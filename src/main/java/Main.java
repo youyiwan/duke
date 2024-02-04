@@ -3,12 +3,12 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 public class Main {
-    public static List[] mylist = new List[1000];
-    public static HashMap<Integer, List> listMap = new HashMap<Integer, List> ();
-    private static int listCount = 0;
-    public static void addlist(List m){
-        mylist[listCount] = m;
-        listCount++;
+    public static Task[] myTask = new Task[100];
+    public static HashMap<Integer, Task> taskMap = new HashMap<Integer, Task> ();
+    private static int taskCount = 0;
+    public static void addTask(Task m){
+        myTask[taskCount] = m;
+        taskCount++;
     }
     public static void main(String[] args) {
         String line;
@@ -20,51 +20,51 @@ public class Main {
         {
             line = in.nextLine();
             isSame = false;
-            if (line.equalsIgnoreCase("bye")) // Exit application
+            if (line.equalsIgnoreCase("bye")) // 1. Exit application
             {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
             }
-            else if(line.equalsIgnoreCase("list")) // Print list
+            else if(line.equalsIgnoreCase("list")) // 2. Print Task
             {
-                for (HashMap.Entry<Integer,List> entry : listMap.entrySet()){
-                    System.out.println( entry.getKey() + "." + entry.getValue().mark.toString() + " " + entry.getValue().description.toString() );
+                for (HashMap.Entry<Integer,Task> entry : taskMap.entrySet()){
+                    System.out.println( entry.getKey() + "." + entry.getValue().booleanToString(entry.getValue().isDone)+ " " + entry.getValue().description.toString() );
                 }
 
             }
-            else if( line.length() >= 4 &&  line.substring(0,4).equalsIgnoreCase("mark") ){    // mark as done
+            else if( line.length() >= 4 &&  line.substring(0,4).equalsIgnoreCase("mark") ){    // 3. mark task as done
                 String[] words = line.split(" ");
-                String done = "[X]";
+                boolean isDone = true;
 
                 // check if key exist if not prompt user to check the list again
-                if(listMap.containsKey(Integer.valueOf(words[1])))
+                if(taskMap.containsKey(Integer.valueOf(words[1])))
                 {
-                    for (HashMap.Entry<Integer,List> entry : listMap.entrySet()){
+                    for (HashMap.Entry<Integer,Task> entry : taskMap.entrySet()){
                         if(entry.getKey() == Integer.valueOf(words[1]) )
                         {
-                            List l = new List(entry.getValue().description.toString(), done);
-                            listMap.put( Integer.valueOf(words[1]) , l);
+                            Task t = new Task(entry.getValue().description.toString(), isDone);
+                            taskMap.put( Integer.valueOf(words[1]) , t);
                             System.out.println("Nice! I've marked this task as done:");
-                            System.out.println(entry.getValue().mark.toString() + " " + entry.getValue().description.toString() );
+                            System.out.println(entry.getValue().markAsDone() + " " + entry.getValue().description.toString() );
 
                         }
                     }
                 }
                 else System.out.println("No such task, please check the list");
             }
-            else if( line.length() >= 6 && line.substring(0,6).equalsIgnoreCase("unmark") ){ // unmark list
+            else if( line.length() >= 6 && line.substring(0,6).equalsIgnoreCase("unmark") ){ // 4. unmark task
                 String[] words = line.split(" ");
-                String notDone = "[ ]";
+                boolean isDone = false;
 
-                // check if key exist if not prompt user to check the list again
-                if(listMap.containsKey(Integer.valueOf(words[1]))){
-                    for (HashMap.Entry<Integer,List> entry : listMap.entrySet()){
+                // check if key exist if not prompt user to check the task again
+                if(taskMap.containsKey(Integer.valueOf(words[1]))){
+                    for (HashMap.Entry<Integer,Task> entry : taskMap.entrySet()){
                         if(entry.getKey() == Integer.valueOf(words[1]) )
                         {
-                            List l = new List(entry.getValue().description.toString(), notDone);
-                            listMap.put( Integer.valueOf(words[1]) , l);
+                            Task t = new Task(entry.getValue().description.toString(), isDone);
+                            taskMap.put( Integer.valueOf(words[1]) , t);
                             System.out.println("OK, I've marked this task as not done yet");
-                            System.out.println(entry.getValue().mark.toString() + " " + entry.getValue().description.toString() );
+                            System.out.println(entry.getValue().markAsNotDone() + " " + entry.getValue().description.toString() );
 
                         }
                     }
@@ -73,8 +73,8 @@ public class Main {
 
             }
             else {
-                 // check for duplicate
-                for (HashMap.Entry<Integer,List> entry : listMap.entrySet() ){
+                 // 5. check for duplicate task
+                for (HashMap.Entry<Integer,Task> entry : taskMap.entrySet() ){
                     String str1 = entry.getValue().description.toString();
                     isSame = str1.equals(line);
                     if( isSame == true) ;
@@ -82,10 +82,10 @@ public class Main {
                         break;
                     }
                 }
-                if (isSame == false) { // if false create new entry
-                    List l = new List(line, "[ ]"); // Create new object of list class
-                    addlist(l); // Add object to list[]
-                    listMap.put(listCount, l);
+                if (isSame == false) { // 6. if false create new entry
+                    Task t = new Task(line, isSame); // Create new object of Task class
+                    addTask(t); // Add object to Task[]
+                    taskMap.put(taskCount, t);
                     System.out.println("added: "+ line);
                 } else System.out.println("Task already exist");
             }
