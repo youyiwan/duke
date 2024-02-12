@@ -28,7 +28,7 @@ public class Main {
             else if(line.equalsIgnoreCase("list")) // 2. Print Task
             {
                 for (HashMap.Entry<Integer,Task> entry : taskMap.entrySet()){
-                    System.out.println( entry.getKey() + "." + entry.getValue().booleanToString(entry.getValue().isDone)+ " " + entry.getValue().description.toString() );
+                    System.out.println( entry.getKey() + "." + entry.getValue().toString());
                 }
 
             }
@@ -40,13 +40,24 @@ public class Main {
                 if(taskMap.containsKey(Integer.valueOf(words[1])))
                 {
                     for (HashMap.Entry<Integer,Task> entry : taskMap.entrySet()){
-                        if(entry.getKey() == Integer.valueOf(words[1]) )
+                        if(entry.getKey().equals(Integer.valueOf(words[1])))
                         {
-                            Task t = new Task(entry.getValue().description.toString(), isDone);
-                            taskMap.put( Integer.valueOf(words[1]) , t);
                             System.out.println("Nice! I've marked this task as done:");
-                            System.out.println(entry.getValue().markAsDone() + " " + entry.getValue().description.toString() );
-
+                            if(entry.getValue().markAsDone().startsWith("[D]")){   // Here you need to check if its deadline, event or todo
+                                Deadline d = new Deadline( entry.getValue().getDescription(), isDone, entry.getValue().getBy());
+                                taskMap.put(entry.getKey(), d);
+                                System.out.println(d);
+                            }
+                            else if (entry.getValue().markAsDone().startsWith("[E]")) {
+                                Event e = new Event( entry.getValue().getDescription(), isDone, entry.getValue().getFrom(), entry.getValue().getTo());
+                                taskMap.put(entry.getKey(), e);
+                                System.out.println(e);
+                            }
+                            else {
+                                Todo t = new Todo(entry.getValue().description, isDone);
+                                taskMap.put( entry.getKey() , t);
+                                System.out.println(t);
+                            }
                         }
                     }
                 }
@@ -55,38 +66,76 @@ public class Main {
             else if( line.length() >= 6 && line.substring(0,6).equalsIgnoreCase("unmark") ){ // 4. unmark task
                 String[] words = line.split(" ");
                 boolean isDone = false;
-
                 // check if key exist if not prompt user to check the task again
                 if(taskMap.containsKey(Integer.valueOf(words[1]))){
                     for (HashMap.Entry<Integer,Task> entry : taskMap.entrySet()){
-                        if(entry.getKey() == Integer.valueOf(words[1]) )
+                        if(entry.getKey().equals(Integer.valueOf(words[1])) )
                         {
-                            Task t = new Task(entry.getValue().description.toString(), isDone);
-                            taskMap.put( Integer.valueOf(words[1]) , t);
                             System.out.println("OK, I've marked this task as not done yet");
-                            System.out.println(entry.getValue().markAsNotDone() + " " + entry.getValue().description.toString() );
-
+                            if(entry.getValue().markAsDone().startsWith("[D]")){   // Here you need to check if its deadline, event or ...
+                                Deadline d = new Deadline( entry.getValue().getDescription(), isDone, entry.getValue().getBy());
+                                taskMap.put(entry.getKey(), d);
+                                System.out.println(d);
+                            }
+                            else if (entry.getValue().markAsDone().startsWith("[E]")){
+                                Event e = new Event( entry.getValue().getDescription(), isDone, entry.getValue().getFrom(), entry.getValue().getTo());
+                                taskMap.put(entry.getKey(), e);
+                                System.out.println(e);
+                            }
+                            else {
+                                Todo t = new Todo(entry.getValue().description, isDone);
+                                taskMap.put( Integer.valueOf(words[1]) , t);
+                                System.out.println(t);
+                            }
                         }
                     }
                 }
                 else System.out.println("No such task, please check the list");
-
             }
             else {
                  // 5. check for duplicate task
                 for (HashMap.Entry<Integer,Task> entry : taskMap.entrySet() ){
-                    String str1 = entry.getValue().description.toString();
+                    String str1 = entry.getValue().description;
                     isSame = str1.equals(line);
-                    if( isSame == true) ;
+                    if( isSame ) ;
                     {
                         break;
                     }
                 }
-                if (isSame == false) { // 6. if false create new entry
-                    Task t = new Task(line, isSame); // Create new object of Task class
-                    addTask(t); // Add object to Task[]
-                    taskMap.put(taskCount, t);
-                    System.out.println("added: "+ line);
+                if (!isSame) { // 6. if false create new entry
+                    int dividerFirstSpace = line.indexOf(' ');
+                    System.out.println("Got it. I've added this task:");
+                    if (line.substring(0,dividerFirstSpace).equalsIgnoreCase("deadline"))
+                    {
+                        int dividerBy = line.indexOf("/by ");
+                        String taskDescription = line.substring(dividerFirstSpace, dividerBy);
+                        String byDescription = line.substring(dividerBy).replace("/by ", "");
+                        Deadline d = new Deadline( taskDescription, isSame, byDescription ); // Create new object of Deadline class
+                        addTask(d); // Add object to Task[]
+                        taskMap.put(taskCount, d); // store deadline object in map
+
+                        System.out.println(d.booleanToString(isSame));
+                    }
+                    else if (line.substring(0,dividerFirstSpace).equalsIgnoreCase("event"))
+                    {
+                        int dividerFrom = line.indexOf("/from ");
+                        int dividerTo = line.indexOf("/to ");
+                        String taskDescription = line.substring(dividerFirstSpace, dividerFrom);
+                        String from = line.substring(dividerFrom, dividerTo).replace("/from ", "");;
+                        String to = line.substring(dividerTo).replace("/to ", "");
+                        Event e = new Event( taskDescription, isSame, from, to ); // Create new object of Deadline class
+                        addTask(e); // Add object to Task[]
+                        taskMap.put(taskCount, e); // store deadline object in map
+                        System.out.println(e.booleanToString(isSame));
+                    }
+                    else {
+                        String newLine = line.substring(dividerFirstSpace);
+                        Todo t = new Todo(newLine, isSame); // Create new object of Todo class
+                        addTask(t); // Add object to Task[]
+                        taskMap.put(taskCount, t);
+                        System.out.println(t.booleanToString(isSame));
+                    }
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
                 } else System.out.println("Task already exist");
             }
         }

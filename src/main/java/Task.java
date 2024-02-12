@@ -9,6 +9,7 @@ public class Task {
         this.isDone = isDone;
     }
 
+
     public String markAsDone(){
         return "[X]";
     }
@@ -21,7 +22,15 @@ public class Task {
         return description;
     }
 
-
+    public String getBy() {
+        return "to be override in Deadline class";
+    }
+    public String getFrom(){
+        return "to be override in Event class";
+    }
+    public String getTo(){
+        return "to be override in Event class";
+    }
     @Override
     public String toString() {
         return getDescription();
@@ -32,7 +41,9 @@ public class Task {
     }
 
     public String booleanToString(boolean isDone) {
-        return (isDone ? "[X]" : "[ ]");
+
+        return (isDone ? markAsDone() +  getDescription()
+                : markAsNotDone() +  getDescription());
     }
 
 
