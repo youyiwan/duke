@@ -22,6 +22,8 @@ public class Main {
         keyWords.add("mark");
         keyWords.add("Unmark");
         keyWords.add("unmark");
+        keyWords.add("Delete");
+        keyWords.add("delete");
 
         ArrayList<Integer> key = new ArrayList<Integer>(100);
         for (int i = 1; i <= 100; i++)
@@ -73,9 +75,8 @@ public class Main {
                 else if(line.equalsIgnoreCase("list")) // 2. Print Task
                 {
                     for (HashMap.Entry<Integer,Task> entry : taskMap.entrySet()){
-                        System.out.println( entry.getKey() + "." + entry.getValue().toString());
+                            System.out.println( entry.getKey() + "." + entry.getValue().toString());
                     }
-
                 }
                 else if( line.length() >= 4 &&  line.substring(0,4).equalsIgnoreCase("mark") ){    // 3. mark task as done
                     String[] words = line.split(" ");
@@ -137,8 +138,31 @@ public class Main {
                     }
                     else System.out.println("No such task, please check the list");
                 }
+                else if( line.length() >= 6 && line.substring(0,6).equalsIgnoreCase("delete") ){ // 5. delete task
+                    String[] words = line.split(" ");
+                    System.out.println("Noted. I've removed this task");
+                    for (HashMap.Entry<Integer,Task> entry : taskMap.entrySet()) {
+                        if (entry.getKey().equals(Integer.valueOf(words[1]))) {
+                            System.out.println(entry.getValue());
+                        }
+                    }
+                    taskMap.remove(Integer.valueOf(words[1]));
+                    taskCount--;
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    /// Update Keys so that the list is in running order ///
+                    if (taskMap.size() == 1)
+                    {
+                        taskMap.put(1, taskMap.get(2));
+                        taskMap.remove(2);
+                    }
+                    else { // Assuming order is not important, last in list will take the rank of the deleted key
+                        taskMap.put(Integer.parseInt(words[1]), taskMap.get(taskMap.size()+1));
+                        taskMap.remove(taskMap.size());
+                    }
+                    /////////////////// End of Update Keys ////////////////
+                }
                 else {
-                     // 5. check for duplicate task
+                     // 6. check for duplicate task
                     for (HashMap.Entry<Integer,Task> entry : taskMap.entrySet() ){
                         String str1 = entry.getValue().description;
                         isSame = str1.equals(line);
@@ -147,7 +171,7 @@ public class Main {
                             break;
                         }
                     }
-                    if (!isSame) { // 6. if false create new entry
+                    if (!isSame) { // 7. if false create new entry
                         int dividerFirstSpace = line.indexOf(' ');
                         System.out.println("Got it. I've added this task:");
                         if (line.substring(0,dividerFirstSpace).equalsIgnoreCase("deadline"))
@@ -174,8 +198,7 @@ public class Main {
                             System.out.println(e.booleanToString(isSame));
                         }
                         else {
-                            String newLine = line.substring(dividerFirstSpace);
-                            Todo t = new Todo(newLine, isSame); // Create new object of Todo class
+                            Todo t = new Todo(line, isSame); // Create new object of Todo class
                             addTask(t); // Add object to Task[]
                             taskMap.put(taskCount, t);
                             System.out.println(t.booleanToString(isSame));
