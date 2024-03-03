@@ -1,7 +1,12 @@
+import java.io.BufferedWriter;
+import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Main {
     public static Task[] myTask = new Task[100];
     public static HashMap<Integer, Task> taskMap = new HashMap<Integer, Task> ();
@@ -10,7 +15,6 @@ public class Main {
         myTask[taskCount] = m;
         taskCount++;
     }
-
 
     public static void main(String[] args) {
         ArrayList keyWords = new ArrayList();
@@ -72,10 +76,22 @@ public class Main {
                     System.out.println("Bye. Hope to see you again soon!");
                     break;
                 }
-                else if(line.equalsIgnoreCase("list")) // 2. Print Task
+                else if(line.equalsIgnoreCase("list")) // 2. Print Task & Write to File
                 {
-                    for (HashMap.Entry<Integer,Task> entry : taskMap.entrySet()){
-                            System.out.println( entry.getKey() + "." + entry.getValue().toString());
+                    File f = new File("data/Euan.txt");
+                    System.out.println("full path: " + f.getAbsolutePath());
+                    System.out.println("file exists?: " + f.exists());
+                    try {
+                        BufferedWriter bf = new BufferedWriter(new FileWriter(f));
+                        for (HashMap.Entry<Integer, Task> entry : taskMap.entrySet()) {
+                            System.out.println(entry.getKey() + "." + entry.getValue().toString());
+                                bf.write(entry.getKey() + "." + entry.getValue().toString());
+                                bf.newLine();
+                        }
+                        bf.close();
+                    }
+                    catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
                     }
                 }
                 else if( line.length() >= 4 &&  line.substring(0,4).equalsIgnoreCase("mark") ){    // 3. mark task as done
@@ -198,7 +214,8 @@ public class Main {
                             System.out.println(e.booleanToString(isSame));
                         }
                         else {
-                            Todo t = new Todo(line, isSame); // Create new object of Todo class
+                            String taskDescription = line.substring(dividerFirstSpace);
+                            Todo t = new Todo(taskDescription, isSame); // Create new object of Todo class
                             addTask(t); // Add object to Task[]
                             taskMap.put(taskCount, t);
                             System.out.println(t.booleanToString(isSame));

@@ -16,9 +16,9 @@ public class Todo extends Task {
     public String toString() {
         if (isDone)
         {
-            return markAsDone()  + " " + description;
+            return markAsDone()  + description;
         }
-        else return markAsNotDone()  + " " + description;
+        else return markAsNotDone()  + description;
     }
     public String booleanToString(boolean isDone) {
 
