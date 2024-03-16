@@ -1,3 +1,5 @@
+package Tasks;
+
 public class Event extends Task {
 
 
@@ -42,5 +44,18 @@ public class Event extends Task {
             return markAsDone() + super.toString() + " (from: " + from + "to: " + to + ")";
         }
         else return markAsNotDone() + super.toString() + " (from: " + from + "to: " + to + ")";
+    }
+
+    public static void createEvent(String line, boolean isSame){
+        int dividerFirstSpace = line.indexOf(' ');
+        int dividerFrom = line.indexOf("/from ");
+        int dividerTo = line.indexOf("/to ");
+        String taskDescription = line.substring(dividerFirstSpace, dividerFrom);
+        String from = line.substring(dividerFrom, dividerTo).replace("/from ", "");;
+        String to = line.substring(dividerTo).replace("/to ", "");
+        Event e = new Event( taskDescription, isSame, from, to ); // Create new object of Deadline class
+        TaskList.addTask(e); // Add object to Task[]
+        TaskList.taskMap.put(TaskList.getTaskCount(), e); // store deadline object in map
+        System.out.println(e.booleanToString(isSame));
     }
 }

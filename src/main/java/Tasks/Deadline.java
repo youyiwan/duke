@@ -1,3 +1,5 @@
+package Tasks;
+
 public class Deadline extends Task {
 
     protected String by;
@@ -37,5 +39,17 @@ public class Deadline extends Task {
             return markAsDone() + super.toString() + " (by: " + by + ")";
         }
         else return markAsNotDone() + super.toString() + " (by: " + by + ")";
+    }
+
+    public static void createDeadline(String line, boolean isSame){
+        int dividerFirstSpace = line.indexOf(' ');
+        int dividerBy = line.indexOf("/by ");
+        String taskDescription = line.substring(dividerFirstSpace, dividerBy);
+        String byDescription = line.substring(dividerBy).replace("/by ", "");
+        Deadline d = new Deadline( taskDescription, isSame, byDescription ); // Create new object of Deadline class
+        TaskList.addTask(d); // Add object to Task[]
+        TaskList.taskMap.put(TaskList.getTaskCount(), d); // store deadline object in map
+
+        System.out.println(d.booleanToString(isSame));
     }
 }
