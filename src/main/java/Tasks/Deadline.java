@@ -1,5 +1,7 @@
 package Tasks;
 
+import Parser.DatesTimes;
+
 public class Deadline extends Task {
 
     protected String by;
@@ -46,10 +48,12 @@ public class Deadline extends Task {
         int dividerBy = line.indexOf("/by ");
         String taskDescription = line.substring(dividerFirstSpace, dividerBy);
         String byDescription = line.substring(dividerBy).replace("/by ", "");
-        Deadline d = new Deadline( taskDescription, isSame, byDescription ); // Create new object of Deadline class
+        Deadline d = new Deadline( taskDescription, isSame, DatesTimes.getDate(byDescription) ); // Create new object of Deadline class
         TaskList.addTask(d); // Add object to Task[]
         TaskList.taskMap.put(TaskList.getTaskCount(), d); // store deadline object in map
 
         System.out.println(d.booleanToString(isSame));
     }
+
+
 }

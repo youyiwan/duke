@@ -2,11 +2,13 @@ package Exceptions;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-
+import java.time.format.DateTimeFormatter;
 public class EuanExceptions extends Exception{
 
     ArrayList<String> keyWords;
     int error = 0;
+
+
 
     public void createKeywords()
     {
@@ -72,6 +74,13 @@ public class EuanExceptions extends Exception{
         System.out.println ("Sorry, I do not understand.");
 
     }
-    
+
+    public void dateFormat() {
+        System.out.println("Please enter the deadline in yyyy-mm-dd format");
+    }
+
+    public void timeFormat() {
+        System.out.println("Please enter the time in HH:MM format");
+    }
 
 }

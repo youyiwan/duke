@@ -1,5 +1,7 @@
 package Tasks;
 
+import Parser.DatesTimes;
+
 public class Event extends Task {
 
 
@@ -24,9 +26,9 @@ public class Event extends Task {
     public String toString() {
         if (isDone)
         {
-            return markAsDone() + description + " (from: " + from + "to: " + to + ")";
+            return markAsDone() + description + " (from: " + from + " to: " + to + ")";
         }
-        else return markAsNotDone() + description + " (from: " + from + "to: " + to + ")";
+        else return markAsNotDone() + description + " (from: " + from + " to: " + to + ")";
     }
 
     public String getFrom(){
@@ -41,9 +43,9 @@ public class Event extends Task {
 
         if (isDone)
         {
-            return markAsDone() + super.toString() + " (from: " + from + "to: " + to + ")";
+            return markAsDone() + super.toString() + " (from: " + from + " to: " + to + ")";
         }
-        else return markAsNotDone() + super.toString() + " (from: " + from + "to: " + to + ")";
+        else return markAsNotDone() + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 
     public static void createEvent(String line, boolean isSame){
@@ -53,7 +55,7 @@ public class Event extends Task {
         String taskDescription = line.substring(dividerFirstSpace, dividerFrom);
         String from = line.substring(dividerFrom, dividerTo).replace("/from ", "");;
         String to = line.substring(dividerTo).replace("/to ", "");
-        Event e = new Event( taskDescription, isSame, from, to ); // Create new object of Deadline class
+        Event e = new Event( taskDescription, isSame, DatesTimes.getDateTime(from), DatesTimes.getDateTime(to) ); // Create new object of Deadline class
         TaskList.addTask(e); // Add object to Task[]
         TaskList.taskMap.put(TaskList.getTaskCount(), e); // store deadline object in map
         System.out.println(e.booleanToString(isSame));
