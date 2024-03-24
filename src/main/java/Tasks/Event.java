@@ -2,6 +2,7 @@
  * Event class is a specific class that inherits from the Task class
  * It inherits two main attributes: (1) general description of the task (2) whether the task is mark as done or not
  * Event class has a time frame element indicated by the string 'to' and 'from'. This indicates the duration of this specific tasks in this class
+ * createEvent is a method to create event task with 4 attributes, description, isDone, to and from
  */
 
 package Tasks;

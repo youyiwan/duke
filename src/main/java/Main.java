@@ -1,4 +1,6 @@
 import java.util.HashMap;
+
+import Parser.DatesTimes;
 import Tasks.*;
 import UI.EuanUI;
 import Exceptions.EuanExceptions;
@@ -48,6 +50,8 @@ public class Main {
                         }
                     }
                 ////// END OF EXCEPTION HANDLING //////
+
+                ////// Start of Chatbot interaction //////
                 if (line.equalsIgnoreCase("bye")) // 1. Exit application
                 {
                     myEuanUI.farewell();
@@ -90,6 +94,13 @@ public class Main {
                         System.out.println("Now you have " + TaskList.getTaskCount() + " tasks in the list.");
                     }
                 }
+                ////// End of Chatbot interaction //////
+                ///// Start of Reminders //////
+
+                Deadline.checkDeadline();
+
+                ///// End of Reminders //////
+
             }
 
 

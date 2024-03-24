@@ -6,6 +6,8 @@
 
 
 package Storage;
+import Parser.DatesTimes;
+import Tasks.Deadline;
 import Tasks.TaskList;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,6 +29,9 @@ public class Storage {
                 bf.write(entry.getKey() + "." + entry.getValue().toString());
                 bf.newLine();
             }
+
+//            Deadline.checkDeadline();
+
             bf.close();
         }
         catch (
