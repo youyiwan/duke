@@ -1,3 +1,10 @@
+/**
+ * Todo class is a specific class that inherits from the Task class
+ * It inherits two main attributes: (1) general description of the task (2) whether the task is mark as done or not
+ * Note that Todo class does not have a time frame element indicating that this particular class of task does not have an urgency.
+ */
+
+
 package Tasks;
 
 public class Todo extends Task {

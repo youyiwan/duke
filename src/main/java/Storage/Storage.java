@@ -1,3 +1,10 @@
+/**
+ * printList serves two purpose
+ * First is to print the list for user to view the entire tasklist at head
+ * Second, at the same time it writes the tasklist to the predefined flat file save in "data/Euan.txt"
+ */
+
+
 package Storage;
 import Tasks.TaskList;
 import java.io.BufferedWriter;

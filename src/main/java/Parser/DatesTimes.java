@@ -1,3 +1,10 @@
+/**
+ * getDate obtains the date input by user in a predefined format YYYY-MM-DD for eg 2019-12-01 and returns a format "MMM dd yyyy"
+ * getDateTime returns the time in HH mm format
+ */
+
+
+
 package Parser;
 
 import Exceptions.EuanExceptions;

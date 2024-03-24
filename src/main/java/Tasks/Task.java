@@ -1,3 +1,8 @@
+/**
+ * Task class is an abstract class
+ * It has two main attributes: (1) general description of the task (2) whether the task is mark as done or not
+ */
+
 package Tasks;
 
 public class Task {
@@ -8,7 +13,6 @@ public class Task {
         this.description = description;
         this.isDone = isDone;
     }
-
 
     public String markAsDone(){
         return "[X]";
