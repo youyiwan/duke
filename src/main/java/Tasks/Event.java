@@ -43,12 +43,12 @@ public class Event extends Task {
 
         if (isDone)
         {
-            return markAsDone() + super.toString() + " (from: " + from + " to: " + to + ")";
+            return markAsDone() + super.toString() + "(from: " + from + " to: " + to + ")";
         }
-        else return markAsNotDone() + super.toString() + " (from: " + from + " to: " + to + ")";
+        else return markAsNotDone() + super.toString() + "(from: " + from + " to: " + to + ")";
     }
 
-    public static void createEvent(String line, boolean isSame){
+    public static String createEvent(String line, boolean isSame){
         int dividerFirstSpace = line.indexOf(' ');
         int dividerFrom = line.indexOf("/from ");
         int dividerTo = line.indexOf("/to ");
@@ -59,5 +59,6 @@ public class Event extends Task {
         TaskList.addTask(e); // Add object to Task[]
         TaskList.taskMap.put(TaskList.getTaskCount(), e); // store deadline object in map
         System.out.println(e.booleanToString(isSame));
+        return e.booleanToString(isSame);
     }
 }

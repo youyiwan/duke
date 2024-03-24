@@ -15,7 +15,6 @@ public class Main {
 
         int error = 0;
         String line;
-        boolean repeat = true;
         boolean isSame = false;
 
         myEuanUI.greetings();

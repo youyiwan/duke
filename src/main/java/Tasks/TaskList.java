@@ -8,7 +8,7 @@ public class TaskList{
     public static HashMap<Integer, Tasks.Task> taskMap;
 
     public static int taskCount = 0;
-    public void createNewTaskList()
+    public static void createNewTaskList()
     {
         myTask = new Tasks.Task[100];
         taskMap = new HashMap<Integer, Tasks.Task> ();
@@ -20,9 +20,10 @@ public class TaskList{
         return taskCount;
     }
 
-    public static void addTask(Tasks.Task m){
+    public static Task addTask(Task m){
         myTask[taskCount] = m;
         taskCount++;
+        return myTask[taskCount];
     }
 
     public void updateTaskCount(int x)

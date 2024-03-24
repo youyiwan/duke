@@ -38,12 +38,12 @@ public class Deadline extends Task {
 
         if (isDone)
         {
-            return markAsDone() + super.toString() + " (by: " + by + ")";
+            return markAsDone() + super.toString() + "(by: " + by + ")";
         }
-        else return markAsNotDone() + super.toString() + " (by: " + by + ")";
+        else return markAsNotDone() + super.toString() + "(by: " + by + ")";
     }
 
-    public static void createDeadline(String line, boolean isSame){
+    public static String createDeadline(String line, boolean isSame){
         int dividerFirstSpace = line.indexOf(' ');
         int dividerBy = line.indexOf("/by ");
         String taskDescription = line.substring(dividerFirstSpace, dividerBy);
@@ -53,6 +53,7 @@ public class Deadline extends Task {
         TaskList.taskMap.put(TaskList.getTaskCount(), d); // store deadline object in map
 
         System.out.println(d.booleanToString(isSame));
+        return d.booleanToString(isSame);
     }
 
 

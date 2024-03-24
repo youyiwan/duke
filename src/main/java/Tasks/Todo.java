@@ -26,17 +26,18 @@ public class Todo extends Task {
 
         if (isDone)
         {
-            return markAsDone() + " " + super.toString() ;
+            return markAsDone()  + super.toString() ;
         }
-        else return markAsNotDone()  + " " + super.toString() ;
+        else return markAsNotDone()   + super.toString() ;
     }
 
-    public static void createTodo(String line, boolean isSame){
+    public static String createTodo(String line, boolean isSame){
         int dividerFirstSpace = line.indexOf(' ');
         String taskDescription = line.substring(dividerFirstSpace);
         Todo t = new Todo(taskDescription, isSame); // Create new object of Todo class
         TaskList.addTask(t); // Add object to Task[]
         TaskList.taskMap.put(TaskList.getTaskCount(), t);
         System.out.println(t.booleanToString(isSame));
+        return t.booleanToString(isSame);
     }
 }

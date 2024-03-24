@@ -16,8 +16,9 @@ public class EuanUI {
         System.out.println("Hello! I'm " + name+"\n"+"What can I do for you?");
     }
 
-    public void farewell(){
+    public static String farewell(){
         System.out.println("Bye. Hope to see you again soon!");
+        return "Bye. Hope to see you again soon!";
     }
 
 }
