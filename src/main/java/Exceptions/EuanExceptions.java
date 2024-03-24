@@ -24,6 +24,9 @@ public class EuanExceptions extends Exception{
         keyWords.add("unmark");
         keyWords.add("Delete");
         keyWords.add("delete");
+        keyWords.add("Find");
+        keyWords.add("find");
+
     }
 
     public void catchExecptions(String line){

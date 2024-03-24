@@ -129,4 +129,16 @@ public class TaskList{
         return isSame;
     }
 
+    public void findTask(String line){
+        String[] words = line.split(" ");
+        for (HashMap.Entry<Integer, Task> entry : taskMap.entrySet()) {
+
+            String description = String.valueOf(entry.getValue());
+
+            if (description.contains(words[1])) {
+                System.out.println(entry.getKey() + "." + entry.getValue().toString());
+            }
+        }
+    }
+
 }

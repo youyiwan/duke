@@ -57,6 +57,9 @@ public class Main {
                 {
                       myStorage.printlist();
                 }
+                else if( line.length() >= 4 &&  line.substring(0,4).equalsIgnoreCase("find") ){    // 3. mark task as done
+                    myTaskList.findTask(line);
+                }
                 else if( line.length() >= 4 &&  line.substring(0,4).equalsIgnoreCase("mark") ){    // 3. mark task as done
                     myTaskList.markTask(line);
                 }
