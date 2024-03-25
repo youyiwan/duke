@@ -1,2 +1,2 @@
-1.[T][ ] read book
-2.[D][X] return car  (by: Jun 25 2024)
+1.[D][X] return book  (by: Mar 25 2024)
+2.[E][X] project meeting  (from: 02 00 to: 17 00)

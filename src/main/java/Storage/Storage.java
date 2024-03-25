@@ -19,6 +19,7 @@ public class Storage {
 
     public void printlist()
     {
+        // 20240325 - Need to fix bug. If only a single task is in the list after delete action is perform. An exception is thrown.
         File f = new File("data/Euan.txt");
         System.out.println("full path: " + f.getAbsolutePath());
         System.out.println("file exists?: " + f.exists());
@@ -29,8 +30,6 @@ public class Storage {
                 bf.write(entry.getKey() + "." + entry.getValue().toString());
                 bf.newLine();
             }
-
-//            Deadline.checkDeadline();
 
             bf.close();
         }

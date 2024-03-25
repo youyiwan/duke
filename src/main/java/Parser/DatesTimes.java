@@ -19,19 +19,21 @@ import java.time.format.DateTimeParseException;
 public class DatesTimes {
 
         static EuanExceptions myEuanExceptions = new EuanExceptions();
-        public static String getDate(String byDescription){
-            LocalDate myDate = LocalDate.parse(byDescription);
-
+        public static String getDate(String byDescription) {
 //            System.out.println(myDate.getDayOfWeek());
 //            System.out.println(myDate.getDayOfMonth());
 //            System.out.println(myDate.getMonth());
 //            System.out.println(myDate.getYear());
 //            System.out.println( myDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
-            try {
-                return myDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            } catch (DateTimeParseException e){
-                myEuanExceptions.dateFormat();
-            }
+//            try {
+//                if (!byDescription.matches("\\d{4}-\\d{2}-\\d{2}")) {
+//                    throw new EuanExceptions();
+//                }
+//            } catch (EuanExceptions e)
+//            {
+//                myEuanExceptions.dateFormat();
+//            }
+            LocalDate myDate = LocalDate.parse(byDescription);
             return myDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         }
 
@@ -46,6 +48,7 @@ public class DatesTimes {
         }
 
         public static String getInitialReminder(String byDescription){
+
             LocalDate myDate = LocalDate.parse(byDescription);
             myDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             Period dateRange = Period.between(LocalDate.now(),myDate);
@@ -60,6 +63,7 @@ public class DatesTimes {
                         + dateRange.getYears() + " year(s), "
                         + "to complete this task";
             }
+
 
         }
 

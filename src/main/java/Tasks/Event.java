@@ -62,6 +62,16 @@ public class Event extends Task {
         String taskDescription = line.substring(dividerFirstSpace, dividerFrom);
         String from = line.substring(dividerFrom, dividerTo).replace("/from ", "");;
         String to = line.substring(dividerTo).replace("/to ", "");
+        if(!from.matches("\\d{2}:\\d{2}")){
+            System.out.println("Please enter the '/from' time in HH:mm format");
+            return "";
+        }
+        else {
+            if(!to.matches("\\d{2}:\\d{2}")){
+                System.out.println("Please enter the '/to' time in HH:mm format");
+                return "";
+            }
+        }
         Event e = new Event( taskDescription, isSame, DatesTimes.getDateTime(from), DatesTimes.getDateTime(to) ); // Create new object of Deadline class
         TaskList.addTask(e); // Add object to Task[]
         TaskList.taskMap.put(TaskList.getTaskCount(), e); // store deadline object in map

@@ -8,6 +8,7 @@
 
 package Tasks;
 
+import Exceptions.EuanExceptions;
 import Parser.DatesTimes;
 
 import java.util.HashMap;
@@ -58,6 +59,10 @@ public class Deadline extends Task {
         int dividerBy = line.indexOf("/by ");
         String taskDescription = line.substring(dividerFirstSpace, dividerBy);
         String byDescription = line.substring(dividerBy).replace("/by ", "");
+        if(!byDescription.matches("\\d{4}-\\d{2}-\\d{2}")){
+            System.out.println("Please enter the deadline in yyyy-mm-dd format");
+            return "";
+        }
         System.out.println(DatesTimes.getInitialReminder(byDescription));
         Deadline d = new Deadline( taskDescription, isSame, DatesTimes.getDate(byDescription) ); // Create new object of Deadline class
         TaskList.addTask(d); // Add object to Task[]
