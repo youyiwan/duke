@@ -26,9 +26,15 @@ public class Storage {
         try {
             BufferedWriter bf = new BufferedWriter(new FileWriter(f));
             for (HashMap.Entry<Integer, Tasks.Task> entry : TaskList.taskMap.entrySet()) {
-                System.out.println(entry.getKey() + "." + entry.getValue().toString());
-                bf.write(entry.getKey() + "." + entry.getValue().toString());
-                bf.newLine();
+                if(entry.getKey() == null || entry.getValue() == null){
+                    break;
+                }
+                else {
+                    System.out.println(entry.getKey() + "." + entry.getValue());
+                    bf.write(entry.getKey() + "." + entry.getValue().toString());
+                    bf.newLine();
+                }
+
             }
 
             bf.close();

@@ -102,18 +102,25 @@ public class TaskList{
                 System.out.println(entry.getValue());
             }
         }
-        TaskList.taskMap.remove(Integer.valueOf(words[1]));
-        updateTaskCount(-1);
+        int deleteKey = Integer.parseInt(words[1]);
+        int initialTaskSize = taskMap.size();
+        TaskList.taskMap.remove(Integer.valueOf(words[1])); // remove task
+        updateTaskCount(-1); // decrement task count
         System.out.println("Now you have " + getTaskCount() + " tasks in the list.");
         /// Update Keys so that the list is in running order ///
-        if (taskMap.size() == 1)
+
+        if (taskMap.size() == 1 && initialTaskSize == 2) // Scenario where you delete a task that is not the last on the list resulting in only 1 task left
         {
-            taskMap.put(1, taskMap.get(2));
-            taskMap.remove(2);
+            taskMap.put(1, taskMap.get(taskMap.size()+1));
+            System.out.println(taskMap.get(taskMap.size()));
+            for (int i=2; i<=100; i++){
+                taskMap.remove(i);
+            }
         }
-        else { // Assuming order is not important, last in list will take the rank of the deleted key
-            taskMap.put(Integer.parseInt(words[1]), taskMap.get(taskMap.size()+1));
-            taskMap.remove(taskMap.size());
+        else if ( deleteKey != initialTaskSize  ){ // Assuming order is not important, last in list will take the rank of the deleted key
+                taskMap.put(Integer.parseInt(words[1]), taskMap.get(taskMap.size()+1)); // take last task and put into into deleted entry
+                taskMap.remove(initialTaskSize);
+
         }
     }
 

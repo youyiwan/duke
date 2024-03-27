@@ -26,18 +26,30 @@ public class Main {
 
                 line = myEuanUI.getInput();
                 int lineLength = line.length();
-                if (line.equalsIgnoreCase("bye")) // 1. Exit application
+                isSame = false;
+                /////// START OF PRINT & EXIT BLOCK ///////
+                if(line.equalsIgnoreCase("list")) // 2. Print Task & Write to File
                 {
-                    myEuanUI.farewell();
+                    while (true){
+                        myStorage.printlist();
+                        line = myEuanUI.getInput();
+                        if (!line.equalsIgnoreCase("list")){
+                            break;
+                        }
+                    }
+                    if (line.equalsIgnoreCase("bye")){
+                        EuanUI.farewell();
+                        break;
+                    }
+                }
+                else if (line.equalsIgnoreCase("bye")) // 1. Exit application
+                {
+                    EuanUI.farewell();
                     break;
                 }
-                else if(line.equalsIgnoreCase("list")) // 2. Print Task & Write to File
-                {
-                    myStorage.printlist();
-                    line = myEuanUI.getInput(); // 20240325 - Need to refactor this not handled properly.
-                }
-                isSame = false;
-                ////// EXCEPTION HANDLING //////
+                /////// END PRINT & EXIT BLOCK ///////
+
+                ////// START OF EXCEPTION HANDLING //////
                 try {
                     EuanUI.createKeywords();
                     if(line.isEmpty() ) { // User enters empty string
@@ -65,8 +77,7 @@ public class Main {
                 }
                 ////// END OF EXCEPTION HANDLING //////
 
-                ////// Start of Chatbot interaction //////
-
+                ////// START OF CHAT BOT INTERACTION //////
                 if( line.length() >= 4 &&  line.substring(0,4).equalsIgnoreCase("find") ){    // 3a. mark task as done
                     myTaskList.findTask(line);
                 }
@@ -112,7 +123,7 @@ public class Main {
                         System.out.println("Now you have " + TaskList.getTaskCount() + " tasks in the list.");
                     }
                 }
-                ////// End of Chatbot interaction //////
+                ////// End OF CHAT BOT INTERACTION //////
                 ///// Start of Reminders //////
                 Deadline.checkDeadline();
                 ///// End of Reminders //////
