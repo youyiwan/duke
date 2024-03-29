@@ -135,6 +135,7 @@ public class Euan {
                 }
                 ////// End OF CHAT BOT INTERACTION //////
                 ///// Start of Reminders //////
+                System.out.println("\n");
                 Deadline.checkDeadline();
                 ///// End of Reminders //////
 

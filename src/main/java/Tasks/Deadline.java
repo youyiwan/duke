@@ -74,7 +74,7 @@ public class Deadline extends Task {
 
     public static void checkDeadline(){
         System.out.println("-------------------------------------- Start of Reminder ------------------------------------- ");
-        System.out.println(" ");
+        System.out.println("\n");
         for (HashMap.Entry<Integer, Tasks.Task> entry : TaskList.taskMap.entrySet()) {
 
             String description = String.valueOf(entry.getValue());
@@ -87,7 +87,7 @@ public class Deadline extends Task {
             }
 
         }
-        System.out.println(" ");
+        System.out.println("\n");
         System.out.println("--------------------------------------- End of Reminder -------------------------------------- ");
     }
 
