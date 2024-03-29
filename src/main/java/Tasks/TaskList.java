@@ -104,24 +104,35 @@ public class TaskList{
         }
         int deleteKey = Integer.parseInt(words[1]);
         int initialTaskSize = taskMap.size();
-        TaskList.taskMap.remove(Integer.valueOf(words[1])); // remove task
-        updateTaskCount(-1); // decrement task count
-        System.out.println("Now you have " + getTaskCount() + " tasks in the list.");
-        /// Update Keys so that the list is in running order ///
 
-        if (taskMap.size() == 1 && initialTaskSize == 2) // Scenario where you delete a task that is not the last on the list resulting in only 1 task left
+        if (deleteKey == initialTaskSize){   // delete last task in the list
+            taskMap.remove(initialTaskSize);
+            updateTaskCount(-1); // decrement task count
+        }
+        else if (deleteKey == 1 && initialTaskSize == 2) // Scenario where you delete a task that is not the last on the list resulting in only 1 task left
         {
-            taskMap.put(1, taskMap.get(taskMap.size()+1));
-            System.out.println(taskMap.get(taskMap.size()));
+            taskMap.put(1, taskMap.get(initialTaskSize));
+//            System.out.println(taskMap.get(taskMap.size()));
             for (int i=2; i<=100; i++){
                 taskMap.remove(i);
             }
-        }
-        else if ( deleteKey != initialTaskSize  ){ // Assuming order is not important, last in list will take the rank of the deleted key
-                taskMap.put(Integer.parseInt(words[1]), taskMap.get(taskMap.size()+1)); // take last task and put into into deleted entry
-                taskMap.remove(initialTaskSize);
+            updateTaskCount(-1); // decrement task count
 
         }
+        else { // Assuming order is not important, last in list will take the rank of the deleted key
+            taskMap.remove(deleteKey);
+            taskMap.put(Integer.parseInt(words[1]), taskMap.get(taskMap.size()+1)); // take last task and put  into deleted entry
+            taskMap.remove(initialTaskSize);
+            updateTaskCount(-1); // decrement task count
+        }
+//        TaskList.taskMap.remove(Integer.valueOf(words[1])); // remove task
+//        updateTaskCount(-1); // decrement task count
+        System.out.println("Now you have " + getTaskCount() + " tasks in the list.");
+        /// Update Keys so that the list is in running order ///
+
+
+
+
     }
 
     public boolean checkDuplicates(String line, boolean isSame){

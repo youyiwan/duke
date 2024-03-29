@@ -1,19 +1,25 @@
-import java.util.HashMap;
-
-import Parser.DatesTimes;
 import Tasks.*;
 import UI.EuanUI;
 import Exceptions.EuanExceptions;
 import Storage.Storage;
-public class Main {
+public class Euan {
     static TaskList myTaskList = new TaskList();
     static EuanUI myEuanUI = new EuanUI();
     static EuanExceptions myEuanExceptions = new EuanExceptions();
     static Storage myStorage = new Storage();
 
+
     public static void main(String[] args) {
+        String logo = " _________                                    \n"
+                    + "| _______|___    ___     _______    ____________\n"
+                    + "| |_____  | |    | |    / -----\\\\   | |      | | \n"
+                    + "|  ____|  | |    | |   / /      \\\\  | |      | | \n"
+                    + "| |_____| | |____| |__/ /________\\\\ | |      | | \n"
+                    + "|_________|________|___\\\\________/\\\\|_|      |_| \n";
+        System.out.println(logo);
 
         myTaskList.createNewTaskList();
+        EuanUI.createKeywords();
 
         int error = 0;
         String line;
@@ -27,42 +33,24 @@ public class Main {
                 line = myEuanUI.getInput();
                 int lineLength = line.length();
                 isSame = false;
-                /////// START OF PRINT & EXIT BLOCK ///////
-                if(line.equalsIgnoreCase("list")) // 2. Print Task & Write to File
-                {
-                    while (true){
-                        myStorage.printlist();
-                        line = myEuanUI.getInput();
-                        if (!line.equalsIgnoreCase("list")){
-                            break;
-                        }
-                    }
-                    if (line.equalsIgnoreCase("bye")){
-                        EuanUI.farewell();
-                        break;
-                    }
-                }
-                else if (line.equalsIgnoreCase("bye")) // 1. Exit application
+                if (line.equalsIgnoreCase("bye")) // 1. Exit application
                 {
                     EuanUI.farewell();
                     break;
                 }
-                /////// END PRINT & EXIT BLOCK ///////
-
                 ////// START OF EXCEPTION HANDLING //////
                 try {
-                    EuanUI.createKeywords();
                     if(line.isEmpty() ) { // User enters empty string
                         error = 1;
                         throw new EuanExceptions(); // User starts with an unrecognize key word
                     }
-                    else if ( lineLength < 4 ){
+                    else if ( lineLength < 4){
                         error = 2;
                         throw new EuanExceptions();
                     }
                     else if (!EuanUI.isKeyWord(line)){
-                            error = 2;
-                            throw new EuanExceptions();
+                        error = 2;
+                        throw new EuanExceptions();
                     }
                 }
                 catch (EuanExceptions e) {
@@ -77,6 +65,23 @@ public class Main {
                 }
                 ////// END OF EXCEPTION HANDLING //////
 
+                //////// Start of Print & Save BLOCK /////////
+                String singleCommandline = line.substring(0,4).toLowerCase();
+                while(singleCommandline.contains("list" )|| singleCommandline.contains("save") ){
+                    switch (singleCommandline) {
+                        case ("list"):
+                            myStorage.printlist();
+                            break;
+                        case ("save"):
+                            myStorage.save();
+                        default:
+                            break;
+                    }
+                    line = myEuanUI.getInput();
+                    singleCommandline = line.toLowerCase();
+                }
+                //////// End of Print & Save BLOCK /////////
+
                 ////// START OF CHAT BOT INTERACTION //////
                 if( line.length() >= 4 &&  line.substring(0,4).equalsIgnoreCase("find") ){    // 3a. mark task as done
                     myTaskList.findTask(line);
@@ -90,7 +95,7 @@ public class Main {
                 else if( line.length() >= 6 && line.substring(0,6).equalsIgnoreCase("delete") ){ // 5. delete task
                       myTaskList.deleteTask(line);
                 }
-                else { // 6. Check for duplicate task
+                else if (line.contains("todo") || line.contains("event" )  || line.contains("deadline") ) { // 6. Check for duplicate task
                     if ( myTaskList.checkDuplicates(line, isSame) ) {
                         System.out.println("Task already exist");
                     }
@@ -122,6 +127,11 @@ public class Main {
                         }
                         System.out.println("Now you have " + TaskList.getTaskCount() + " tasks in the list.");
                     }
+                }
+                if (line.equalsIgnoreCase("bye")) // 1. Exit application
+                {
+                    EuanUI.farewell();
+                    break;
                 }
                 ////// End OF CHAT BOT INTERACTION //////
                 ///// Start of Reminders //////

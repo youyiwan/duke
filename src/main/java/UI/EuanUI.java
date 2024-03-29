@@ -34,6 +34,8 @@ public class EuanUI {
         keyWordsList.add("event");
         keyWordsList.add("Deadline");
         keyWordsList.add("deadline");
+        keyWordsList.add("Save");
+        keyWordsList.add("save");
     }
 
     public void greetings(){
@@ -48,9 +50,15 @@ public class EuanUI {
 
     public static String getCommand(String line){
 
-        int dividerFirstSpace = line.indexOf(' ');
-        return line.substring(0,dividerFirstSpace);
+        if(line.length() == 4 && (line.equalsIgnoreCase("list") || line.equalsIgnoreCase("save") )){
+            return line.substring(0,4);
+        }
+        else if (line.length() > 4){
+            int dividerFirstSpace = line.indexOf(' ');
+            return line.substring(0,dividerFirstSpace);
+        }
 
+        return line + "fail";
 
     }
 
