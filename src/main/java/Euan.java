@@ -1,3 +1,4 @@
+import Parser.DatesTimes;
 import Tasks.*;
 import UI.EuanUI;
 import Exceptions.EuanExceptions;
@@ -84,7 +85,13 @@ public class Euan {
 
                 ////// START OF CHAT BOT INTERACTION //////
                 if( line.length() >= 4 &&  line.substring(0,4).equalsIgnoreCase("find") ){    // 3a. mark task as done
-                    myTaskList.findTask(line);
+                    String getDigits = line.substring(9);
+                    String getMth = line.substring(5,8).toLowerCase();
+                    DatesTimes.createMonth();;
+                    if( DatesTimes.monthList.contains(getMth)  && getDigits.matches("\\d{2} \\d{4}")){ // Find by deadline
+                        myTaskList.findDeadline(line);
+                    }
+                    else myTaskList.findTask(line); // Find by task
                 }
                 else if( line.length() >= 4 &&  line.substring(0,4).equalsIgnoreCase("mark") ){    // 3b. mark task as done
                     myTaskList.markTask(line);

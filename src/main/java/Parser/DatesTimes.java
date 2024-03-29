@@ -15,8 +15,27 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 public class DatesTimes {
+
+    public static ArrayList<String> monthList;
+    public static void createMonth()
+    {
+        monthList = new ArrayList<>();
+        monthList.add("jan");
+        monthList.add("feb");
+        monthList.add("mar");
+        monthList.add("apr");
+        monthList.add("may");
+        monthList.add("jun");
+        monthList.add("jul");
+        monthList.add("aug");
+        monthList.add("sep");
+        monthList.add("oct");
+        monthList.add("nov");
+        monthList.add("dec");
+    }
 
         static EuanExceptions myEuanExceptions = new EuanExceptions();
         public static String getDate(String byDescription) {
@@ -54,7 +73,7 @@ public class DatesTimes {
             Period dateRange = Period.between(LocalDate.now(),myDate);
 
             if(dateRange.getDays() < 3 && (dateRange.getMonths() == 0) && (dateRange.getYears() == 0) ){
-                return "Caution: This task is due in less than 3 days";
+                return "Caution ⚠: This task is due in less than 3 days";
             }
             else {
                 return "Initial Reminder: You have "
@@ -74,7 +93,7 @@ public class DatesTimes {
 
             Period dateRange = Period.between(LocalDate.now(), TargetDate);
             if(dateRange.getDays() < 3 && (dateRange.getMonths() == 0) && (dateRange.getYears() == 0) ){
-                return "***Caution***: This task is due in less than 3 days";
+                return "Caution ⚠: This task is due in less than 3 days";
             }
             else {
                 return "Reminder: You have "

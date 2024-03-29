@@ -1,6 +1,9 @@
 package Tasks;
 
+import Parser.DatesTimes;
+
 import java.util.HashMap;
+import java.util.Objects;
 
 public class TaskList{
 
@@ -41,7 +44,7 @@ public class TaskList{
             for (HashMap.Entry<Integer, Task> entry : taskMap.entrySet()){
                 if(entry.getKey().equals(Integer.valueOf(words[1])))
                 {
-                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("Good job! I've marked this task as done ✅ :");
                     if(entry.getValue().markAsDone().startsWith("[D]")){   // Here you need to check if its deadline, event or todo
                         Deadline d = new Deadline( entry.getValue().getDescription(), isDone, entry.getValue().getBy());
                         taskMap.put(entry.getKey(), d);
@@ -156,6 +159,24 @@ public class TaskList{
             if (description.contains(words[1])) {
                 System.out.println(entry.getKey() + "." + entry.getValue().toString());
             }
+        }
+    }
+
+    public void findDeadline(String line){
+        String findDate = line.substring(5);
+        for (HashMap.Entry<Integer, Tasks.Task> entry : TaskList.taskMap.entrySet()) {
+
+            String description = String.valueOf(entry.getValue());
+
+            if (description.contains("by")) {
+                int dividerBy = description.indexOf("by: ");
+                String tempCheckDate = description.substring(dividerBy).replace("by: ", "");
+                String checkDate = tempCheckDate.replace(")", "");
+                if(Objects.equals(findDate, checkDate  )){
+                    System.out.println(entry.getKey() + "." + entry.getValue().toString());
+                }
+            }
+
         }
     }
 
