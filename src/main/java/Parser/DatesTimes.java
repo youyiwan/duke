@@ -1,12 +1,3 @@
-/**
- * getDate obtains the date input by user in a predefined format YYYY-MM-DD for eg 2019-12-01 and returns a format "MMM dd yyyy"
- * getDateTime returns the time in HH mm format
- * getInitialReminder updates the reminder list for the first time when a deadline task is first created
- * getRegularReminder recurring show the reminder list while user is still interacting with the chatbot
- */
-
-
-
 package Parser;
 
 import Exceptions.EuanExceptions;
@@ -16,10 +7,18 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-
+/**
+ * getDate obtains the date input by user in a predefined format YYYY-MM-DD for eg 2019-12-01 and returns a format "MMM dd yyyy"
+ * getDateTime returns the time in HH mm format
+ * getInitialReminder updates the reminder list for the first time when a deadline task is first created
+ * getRegularReminder recurring show the reminder list while user is still interacting with the chatbot
+ */
 public class DatesTimes {
 
     public static ArrayList<String> monthList;
+    /**
+     * Creates an array of months
+     */
     public static void createMonth()
     {
         monthList = new ArrayList<>();
@@ -38,24 +37,23 @@ public class DatesTimes {
     }
 
         static EuanExceptions myEuanExceptions = new EuanExceptions();
+
+        /**
+         * Returns the date in MMM dd yyyy format.
+         */
         public static String getDate(String byDescription) {
 //            System.out.println(myDate.getDayOfWeek());
 //            System.out.println(myDate.getDayOfMonth());
 //            System.out.println(myDate.getMonth());
 //            System.out.println(myDate.getYear());
 //            System.out.println( myDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
-//            try {
-//                if (!byDescription.matches("\\d{4}-\\d{2}-\\d{2}")) {
-//                    throw new EuanExceptions();
-//                }
-//            } catch (EuanExceptions e)
-//            {
-//                myEuanExceptions.dateFormat();
-//            }
+
             LocalDate myDate = LocalDate.parse(byDescription);
             return myDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         }
-
+        /**
+         * Returns the time in HH mm format.
+         */
         public static  String getDateTime (String to){
             LocalTime myTime = LocalTime.parse(to);
             try {
@@ -66,6 +64,9 @@ public class DatesTimes {
             return myTime.format(DateTimeFormatter.ofPattern("HH mm"));
         }
 
+        /**
+         * Returns a message remind the user of the due date when the task is first recorded.
+         */
         public static String getInitialReminder(String byDescription){
 
             LocalDate myDate = LocalDate.parse(byDescription);
@@ -86,7 +87,10 @@ public class DatesTimes {
 
         }
 
-
+        /**
+         * Returns a message remind the user of the due date each time a task is recorded.
+         * Serves as a subsequent reminder.
+         */
         public static String getRegularReminder(String checkDate) {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
             LocalDate TargetDate = LocalDate.parse(checkDate,dateTimeFormatter);

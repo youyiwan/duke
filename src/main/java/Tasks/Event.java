@@ -1,13 +1,12 @@
+package Tasks;
+
+import Parser.DatesTimes;
 /**
  * Event class is a specific class that inherits from the Task class
  * It inherits two main attributes: (1) general description of the task (2) whether the task is mark as done or not
  * Event class has a time frame element indicated by the string 'to' and 'from'. This indicates the duration of this specific tasks in this class
  * createEvent is a method to create event task with 4 attributes, description, isDone, to and from
  */
-
-package Tasks;
-
-import Parser.DatesTimes;
 
 public class Event extends Task {
 
@@ -20,16 +19,22 @@ public class Event extends Task {
         this.from=from;
         this.to = to;
     }
-
+    /**
+     * Overwrites the method markAsDone() from Task class. From "[X]" to "[E][X]" .
+     */
     @Override
     public String markAsDone(){
         return "[E][X]";
     }
-
+    /**
+     * Overwrites the method markAsNotDone() from Task class. From "[ ]" to "[E][ ]" .
+     */
     public String markAsNotDone(){
         return "[E][ ]";
     }
-
+    /**
+     * Concatenates all the attributes of Deadline task.
+     */
     public String toString() {
         if (isDone)
         {
@@ -54,7 +59,9 @@ public class Event extends Task {
         }
         else return markAsNotDone() + super.toString() + "(from: " + from + " to: " + to + ")";
     }
-
+    /**
+     * Creates and returns event task.
+     */
     public static String createEvent(String line, boolean isSame){
         int dividerFirstSpace = line.indexOf(' ');
         int dividerFrom = line.indexOf("/from ");

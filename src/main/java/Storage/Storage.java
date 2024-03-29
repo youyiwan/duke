@@ -1,10 +1,3 @@
-/**
- * printList serves two purpose
- * First is to print the list for user to view the entire tasklist at head
- * Second, at the same time it writes the tasklist to the predefined flat file save in "data/Euan.txt"
- */
-
-
 package Storage;
 import Parser.DatesTimes;
 import Tasks.Deadline;
@@ -18,9 +11,17 @@ import java.time.LocalTime;
 import java.util.HashMap;
 
 import static Tasks.TaskList.taskMap;
-
+/**
+ * All printing of tasks and writing to the file associated methods are in the storage class.
+ * It has two public methods print and save.
+ * First is to save and print the list for user to view the entire tasklist
+ * Second, at the same time it writes the tasklist to the predefined flat file save in "data/Euan.txt"
+ */
 public class Storage {
 
+    /**
+     * Save the task list to a predefined flat file save in "data/Euan.txt" while at the same time prints the task list.
+     */
     public void save()
     {
         if (taskMap.isEmpty()){
@@ -75,7 +76,9 @@ public class Storage {
 
 
     }
-
+    /**
+     * Prints the task list.
+     */
     public void printlist()
     {
         if (taskMap.isEmpty()){

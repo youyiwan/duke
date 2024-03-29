@@ -1,3 +1,4 @@
+package Tasks;
 /**
  * Todo class is a specific class that inherits from the Task class
  * It inherits two main attributes: (1) general description of the task (2) whether the task is mark as done or not
@@ -5,23 +6,27 @@
  */
 
 
-package Tasks;
-
 public class Todo extends Task {
 
     public Todo(String description, boolean isDone) {
         super(description, isDone);
     }
-
+    /**
+     * Overwrites the method markAsDone() from Task class. From "[X]" to "[T][X]" .
+     */
     @Override
     public String markAsDone(){
         return "[T][X]";
     }
-
+    /**
+     * Overwrites the method markAsNotDone() from Task class. From "[ ]" to "[T][ ]" .
+     */
     public String markAsNotDone(){
         return "[T][ ]";
     }
-
+    /**
+     * Concatenates all the attributes of Deadline task.
+     */
     public String toString() {
         if (isDone)
         {
@@ -37,7 +42,9 @@ public class Todo extends Task {
         }
         else return markAsNotDone()   + super.toString() ;
     }
-
+    /**
+     * Creates and returns todo task.
+     */
     public static String createTodo(String line, boolean isSame){
         int dividerFirstSpace = line.indexOf(' ');
         String taskDescription = line.substring(dividerFirstSpace);

@@ -4,25 +4,34 @@ import Parser.DatesTimes;
 
 import java.util.HashMap;
 import java.util.Objects;
-
+/**
+ * This class is the used to maintain and keep track of the entire task in the list.
+ */
 public class TaskList{
 
     public static Tasks.Task[] myTask;
     public static HashMap<Integer, Tasks.Task> taskMap;
 
     public static int taskCount = 0;
+    /**
+     * This method creates a new task list in the form of a hash map structure and is limited to only 100 tasks.
+     */
     public static void createNewTaskList()
     {
         myTask = new Tasks.Task[100];
         taskMap = new HashMap<Integer, Tasks.Task> ();
     }
 
-
+    /**
+     * This method returns the total number of tasks in the list
+     */
     public static int getTaskCount()
     {
         return taskCount;
     }
-
+    /**
+     * This method adds the task and increments the taskcount.
+     */
     public static Task addTask(Task m){
         myTask[taskCount] = m;
         taskCount++;
@@ -33,7 +42,9 @@ public class TaskList{
     {
         taskCount=taskCount+x;
     }
-
+    /**
+     * This method loops through the task list and marks the task as done if found.
+     */
     public void markTask(String line){
         String[] words = line.split(" ");
         boolean isDone = true;
@@ -65,7 +76,9 @@ public class TaskList{
         }
         else System.out.println("No such task, please check the list");
     }
-
+    /**
+     * This method loops through the task list and unmarks the task as done if found.
+     */
     public void unmarkTask(String line) {
         String[] words = line.split(" ");
         boolean isDone = false;
@@ -96,7 +109,9 @@ public class TaskList{
         else System.out.println("No such task, please check the list");
 
     }
-
+    /**
+     * This method loops through the task list and deletes the task as done if found.
+     */
     public void deleteTask(String line){
         String[] words = line.split(" ");
         System.out.println("Noted. I've removed this task");
@@ -137,7 +152,9 @@ public class TaskList{
 
 
     }
-
+    /**
+     * This method loops through the task list and checks for duplicates.
+     */
     public boolean checkDuplicates(String line, boolean isSame){
         int dividerFirstSpace = line.indexOf(' ');
         for (HashMap.Entry<Integer, Task> entry : taskMap.entrySet() ){
@@ -149,7 +166,9 @@ public class TaskList{
         }
         return isSame;
     }
-
+    /**
+     * This method loops through the task and find tasks that are associated with description is entered by the user.
+     */
     public void findTask(String line){
         String[] words = line.split(" ");
         for (HashMap.Entry<Integer, Task> entry : taskMap.entrySet()) {
@@ -161,7 +180,9 @@ public class TaskList{
             }
         }
     }
-
+    /**
+     * This method loops through the task and find a deadline task and prints a deadline task if the deadline date matches the date entered by user.
+     */
     public void findDeadline(String line){
         String findDate = line.substring(5);
         for (HashMap.Entry<Integer, Tasks.Task> entry : TaskList.taskMap.entrySet()) {

@@ -1,3 +1,9 @@
+package Tasks;
+
+import Exceptions.EuanExceptions;
+import Parser.DatesTimes;
+
+import java.util.HashMap;
 /**
  * Deadline class is a specific class that inherits from the Task class
  * It inherits two main attributes: (1) general description of the task (2) whether the task is mark as done or not
@@ -5,14 +11,6 @@
  * createDeadline is a method to create deadline task with 3 attributes, description, isDone and by
  * checkDeadline checks the deadline for all tasks in this class
  */
-
-package Tasks;
-
-import Exceptions.EuanExceptions;
-import Parser.DatesTimes;
-
-import java.util.HashMap;
-
 public class Deadline extends Task {
 
     protected String by;
@@ -23,16 +21,22 @@ public class Deadline extends Task {
     }
 
 
-
+    /**
+     * Overwrites the method markAsDone() from Task class. From "[X]" to "[D][X]" .
+     */
     @Override
     public String markAsDone(){
         return "[D][X]";
     }
-
+    /**
+     * Overwrites the method markAsNotDone() from Task class. From "[ ]" to "[D][ ]" .
+     */
     public String markAsNotDone(){
         return "[D][ ]";
     }
-
+    /**
+     * Concatenates all the attributes of Deadline task.
+     */
     public String toString() {
         if (isDone)
         {
@@ -53,7 +57,9 @@ public class Deadline extends Task {
         }
         else return markAsNotDone() + super.toString() + "(by: " + by + ")";
     }
-
+    /**
+     * Creates and returns Deadline task.
+     */
     public static String createDeadline(String line, boolean isSame){
         int dividerFirstSpace = line.indexOf(' ');
         int dividerBy = line.indexOf("/by ");
@@ -71,7 +77,9 @@ public class Deadline extends Task {
         System.out.println(d.booleanToString(isSame));
         return d.booleanToString(isSame);
     }
-
+    /**
+     * Serves as a reminder for the deadline task and prints the time left till deadline date.
+     */
     public static void checkDeadline(){
         System.out.println("-------------------------------------- Start of Reminder ------------------------------------- ");
         System.out.println("\n");
