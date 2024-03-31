@@ -5,7 +5,7 @@
 
 package Tasks;
 
-public class Task {
+public abstract class Task {
     public String description;
     public boolean isDone;
 
