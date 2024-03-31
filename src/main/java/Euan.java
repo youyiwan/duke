@@ -1,8 +1,11 @@
-import Parser.DatesTimes;
-import Tasks.*;
-import UI.EuanUI;
-import Exceptions.EuanExceptions;
-import Storage.Storage;
+import parser.DatesTimes;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Todo;
+import tasks.TaskList;
+import ui.EuanUI;
+import exceptions.EuanExceptions;
+import storage.Storage;
 public class Euan {
     static TaskList myTaskList = new TaskList();
     static EuanUI myEuanUI = new EuanUI();
@@ -53,8 +56,7 @@ public class Euan {
                         error = 2;
                         throw new EuanExceptions();
                     }
-                }
-                catch (EuanExceptions e) {
+                } catch (EuanExceptions e) {
                     if (error == 1){
                         myEuanExceptions.emptyStringError();
                         continue;

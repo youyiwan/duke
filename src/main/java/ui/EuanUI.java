@@ -1,4 +1,4 @@
-package UI;
+package ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class EuanUI {
@@ -12,8 +12,7 @@ public class EuanUI {
         return myInput;
     }
     static ArrayList<String> keyWordsList;
-    public static void createKeywords()
-    {
+    public static void createKeywords(){
         keyWordsList = new ArrayList<>();
         keyWordsList.add("Bye");
         keyWordsList.add("bye");
@@ -62,8 +61,7 @@ public class EuanUI {
 
     }
 
-    public static boolean isKeyWord(String line)
-    {
+    public static boolean isKeyWord(String line){
 //        if(line.equalsIgnoreCase("bye")){
 //            return true;
 //        }

@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 /**
  * Todo class is a specific class that inherits from the Task class
  * It inherits two main attributes: (1) general description of the task (2) whether the task is mark as done or not

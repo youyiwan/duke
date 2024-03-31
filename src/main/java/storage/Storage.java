@@ -1,16 +1,15 @@
-package Storage;
-import Parser.DatesTimes;
-import Tasks.Deadline;
-import Tasks.TaskList;
+package storage;
+import parser.DatesTimes;
+import tasks.Deadline;
+import tasks.TaskList;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.HashMap;
 
-import static Tasks.TaskList.taskMap;
+import static tasks.TaskList.taskMap;
 /**
  * All printing of tasks and writing to the file associated methods are in the storage class.
  * It has two public methods print and save.
@@ -22,8 +21,7 @@ public class Storage {
     /**
      * Save the task list to a predefined flat file save in "data/Euan.txt" while at the same time prints the task list.
      */
-    public void save()
-    {
+    public void save(){
         if (taskMap.isEmpty()){
             System.out.println("There are no task currently.");
         }
@@ -37,7 +35,7 @@ public class Storage {
                 bf.write("\n");
                 System.out.println("Your task(s) as of " + LocalDate.now() + "\n");
                 bf.write("Your task(s) as of " + LocalDate.now() + "\n");
-                for (HashMap.Entry<Integer, Tasks.Task> entry : taskMap.entrySet()) {
+                for (HashMap.Entry<Integer, tasks.Task> entry : taskMap.entrySet()) {
                     if(entry.getKey() == null || entry.getValue() == null){
                         break;
                     }
@@ -52,7 +50,7 @@ public class Storage {
                 bf.write("\n");
                 Deadline.checkDeadline();
                 bf.write("-------------------------------------- Start of Reminder ------------------------------------- \n");
-                for (HashMap.Entry<Integer, Tasks.Task> entry : TaskList.taskMap.entrySet()) {
+                for (HashMap.Entry<Integer, tasks.Task> entry : TaskList.taskMap.entrySet()) {
                     bf.write("\n");
                     String description = String.valueOf(entry.getValue());
 
@@ -79,14 +77,13 @@ public class Storage {
     /**
      * Prints the task list.
      */
-    public void printlist()
-    {
+    public void printlist(){
         if (taskMap.isEmpty()){
             System.out.println("There are no task currently.");
         }
         else {
             System.out.println("Your task(s) as of " + LocalDate.now() + "\n");
-            for (HashMap.Entry<Integer, Tasks.Task> entry : taskMap.entrySet()) {
+            for (HashMap.Entry<Integer, tasks.Task> entry : taskMap.entrySet()) {
                 if (entry.getKey() == null || entry.getValue() == null) {
                     break;
                 }

@@ -1,7 +1,6 @@
-package Tasks;
+package tasks;
 
-import Exceptions.EuanExceptions;
-import Parser.DatesTimes;
+import parser.DatesTimes;
 
 import java.util.HashMap;
 /**
@@ -83,7 +82,7 @@ public class Deadline extends Task {
     public static void checkDeadline(){
         System.out.println("-------------------------------------- Start of Reminder ------------------------------------- ");
         System.out.println("\n");
-        for (HashMap.Entry<Integer, Tasks.Task> entry : TaskList.taskMap.entrySet()) {
+        for (HashMap.Entry<Integer, tasks.Task> entry : TaskList.taskMap.entrySet()) {
 
             String description = String.valueOf(entry.getValue());
 

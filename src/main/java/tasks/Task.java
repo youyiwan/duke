@@ -3,7 +3,7 @@
  * It has two main attributes: (1) general description of the task (2) whether the task is mark as done or not
  */
 
-package Tasks;
+package tasks;
 
 public abstract class Task {
     public String description;

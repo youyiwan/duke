@@ -1,8 +1,8 @@
-package Tasks;
+package tasks;
 
 import org.junit.jupiter.api.Test;
 
-import static Tasks.TaskList.createNewTaskList;
+import static tasks.TaskList.createNewTaskList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTest {

@@ -1,9 +1,9 @@
-package Tasks;
+package tasks;
 
 
 import org.junit.jupiter.api.Test;
 
-import static Tasks.TaskList.*;
+import static tasks.TaskList.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {

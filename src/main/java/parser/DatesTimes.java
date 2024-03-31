@@ -1,6 +1,6 @@
-package Parser;
+package parser;
 
-import Exceptions.EuanExceptions;
+import exceptions.EuanExceptions;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -19,8 +19,7 @@ public class DatesTimes {
     /**
      * Creates an array of months
      */
-    public static void createMonth()
-    {
+    public static void createMonth(){
         monthList = new ArrayList<>();
         monthList.add("jan");
         monthList.add("feb");

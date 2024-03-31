@@ -1,6 +1,4 @@
-package Tasks;
-
-import Parser.DatesTimes;
+package tasks;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -9,8 +7,8 @@ import java.util.Objects;
  */
 public class TaskList{
 
-    public static Tasks.Task[] myTask;
-    public static HashMap<Integer, Tasks.Task> taskMap;
+    public static tasks.Task[] myTask;
+    public static HashMap<Integer, tasks.Task> taskMap;
 
     public static int taskCount = 0;
     /**
@@ -18,8 +16,8 @@ public class TaskList{
      */
     public static void createNewTaskList()
     {
-        myTask = new Tasks.Task[100];
-        taskMap = new HashMap<Integer, Tasks.Task> ();
+        myTask = new tasks.Task[100];
+        taskMap = new HashMap<Integer, tasks.Task> ();
     }
 
     /**
@@ -185,7 +183,7 @@ public class TaskList{
      */
     public void findDeadline(String line){
         String findDate = line.substring(5);
-        for (HashMap.Entry<Integer, Tasks.Task> entry : TaskList.taskMap.entrySet()) {
+        for (HashMap.Entry<Integer, tasks.Task> entry : TaskList.taskMap.entrySet()) {
 
             String description = String.valueOf(entry.getValue());
 

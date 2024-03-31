@@ -1,8 +1,5 @@
-package Exceptions;
+package exceptions;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.time.format.DateTimeFormatter;
 /**
  * This is an exception class to catch any errors.
  * Its purpose is to catch and return helpful messages to assist user in using this app.
@@ -14,8 +11,7 @@ public class EuanExceptions extends Exception{
     /**
      * Returns a message to inform user that an empty task is entered.
      */
-    public void emptyStringError()
-    {
+    public void emptyStringError(){
         System.out.println ("Congratulations! 😂 You have created in an empty task. There is nothing for you to do.");
         System.out.println("If this is a typo. Please try again.");
     }
@@ -23,8 +19,7 @@ public class EuanExceptions extends Exception{
     /**
      * Returns a message to inform user that what was entered was not comprehended by the app and returns guidelines on how to use this app.
      */
-    public void isRubbish()
-    {
+    public void isRubbish(){
         System.out.println ("Sorry, I do not understand.");
         System.out.println ("Please start the sentence with the following keywords:");
         System.out.println ("#1: 'Todo': refers to a generic task. For example 'todo return book'");
