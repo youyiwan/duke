@@ -1,8 +1,8 @@
 
 Your task(s) as of 2024-03-31
-1.[T][X] read book
-2.[D][X] return book  (by: Mar 30 2024)
-3.[E][X] project meeting  (from: 02 00 to: 17 00)
+1.[T][ ] read book
+2.[D][ ] return book  (by: Mar 30 2024)
+3.[E][ ] project meeting  (from: 02 00 to: 17 00)
 
 -------------------------------------- Start of Reminder ------------------------------------- 
 

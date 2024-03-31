@@ -116,6 +116,9 @@ public class Euan {
                                 if ( result.isEmpty()){
                                     System.out.println("No task added");
                                 }
+                                else if (result.equals("Failed to add deadline task")){
+                                    System.out.println(result);
+                                }
                                 else {
                                     System.out.println("Got it. I've added this task:");
                                 }
@@ -125,6 +128,9 @@ public class Euan {
                               String result = Event.createEvent(line, isSame);
                                 if ( result.isEmpty()){
                                     System.out.println("No task added");
+                                }
+                                else if (result.equals("Failed to add event task")){
+                                    System.out.println(result);
                                 }
                                 else {
                                     System.out.println("Got it. I've added this task:");

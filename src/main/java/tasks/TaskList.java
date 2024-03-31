@@ -1,5 +1,7 @@
 package tasks;
 
+import exceptions.EuanExceptions;
+
 import java.util.HashMap;
 import java.util.Objects;
 /**
@@ -7,6 +9,7 @@ import java.util.Objects;
  */
 public class TaskList{
 
+    static EuanExceptions myEuanExceptions = new EuanExceptions();
     public static tasks.Task[] myTask;
     public static HashMap<Integer, tasks.Task> taskMap;
 
@@ -111,40 +114,54 @@ public class TaskList{
      * This method loops through the task list and deletes the task as done if found.
      */
     public void deleteTask(String line){
-        String[] words = line.split(" ");
-        System.out.println("Noted. I've removed this task");
-        for (HashMap.Entry<Integer, Task> entry : taskMap.entrySet()) {
-            if (entry.getKey().equals(Integer.valueOf(words[1]))) {
-                System.out.println(entry.getValue());
+        int dividerFirstSpace = line.indexOf(' ');
+        int taskNumDelete = Integer.parseInt(line.substring(dividerFirstSpace+1));
+        try{
+            if( taskNumDelete > getTaskCount() || taskNumDelete == 0){
+                throw new EuanExceptions();
             }
-        }
-        int deleteKey = Integer.parseInt(words[1]);
-        int initialTaskSize = taskMap.size();
+            else {
 
-        if (deleteKey == initialTaskSize){   // delete last task in the list
-            taskMap.remove(initialTaskSize);
-            updateTaskCount(-1); // decrement task count
-        }
-        else if (deleteKey == 1 && initialTaskSize == 2) // Scenario where you delete a task that is not the last on the list resulting in only 1 task left
-        {
-            taskMap.put(1, taskMap.get(initialTaskSize));
+                String[] words = line.split(" ");
+                System.out.println("Noted. I've removed this task");
+                for (HashMap.Entry<Integer, Task> entry : taskMap.entrySet()) {
+                    if (entry.getKey().equals(Integer.valueOf(words[1]))) {
+                        System.out.println(entry.getValue());
+                    }
+                }
+                int deleteKey = Integer.parseInt(words[1]);
+                int initialTaskSize = taskMap.size();
+
+                if (deleteKey == initialTaskSize){   // delete last task in the list
+                    taskMap.remove(initialTaskSize);
+                    updateTaskCount(-1); // decrement task count
+                }
+                else if (deleteKey == 1 && initialTaskSize == 2) // Scenario where you delete a task that is not the last on the list resulting in only 1 task left
+                {
+                    taskMap.put(1, taskMap.get(initialTaskSize));
 //            System.out.println(taskMap.get(taskMap.size()));
-            for (int i=2; i<=100; i++){
-                taskMap.remove(i);
-            }
-            updateTaskCount(-1); // decrement task count
+                    for (int i=2; i<=100; i++){
+                        taskMap.remove(i);
+                    }
+                    updateTaskCount(-1); // decrement task count
 
-        }
-        else { // Assuming order is not important, last in list will take the rank of the deleted key
-            taskMap.remove(deleteKey);
-            taskMap.put(Integer.parseInt(words[1]), taskMap.get(taskMap.size()+1)); // take last task and put  into deleted entry
-            taskMap.remove(initialTaskSize);
-            updateTaskCount(-1); // decrement task count
-        }
+                }
+                else { // Assuming order is not important, last in list will take the rank of the deleted key
+                    taskMap.remove(deleteKey);
+                    taskMap.put(Integer.parseInt(words[1]), taskMap.get(taskMap.size()+1)); // take last task and put  into deleted entry
+                    taskMap.remove(initialTaskSize);
+                    updateTaskCount(-1); // decrement task count
+                }
 //        TaskList.taskMap.remove(Integer.valueOf(words[1])); // remove task
 //        updateTaskCount(-1); // decrement task count
-        System.out.println("Now you have " + getTaskCount() + " tasks in the list.");
-        /// Update Keys so that the list is in running order ///
+                System.out.println("Now you have " + getTaskCount() + " tasks in the list.");
+                /// Update Keys so that the list is in running order ///
+            }
+        } catch (EuanExceptions e){
+            myEuanExceptions.taskInvalid();
+        }
+
+
 
 
 

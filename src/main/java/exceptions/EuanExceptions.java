@@ -43,4 +43,16 @@ public class EuanExceptions extends Exception{
         System.out.println("Please enter the time in HH:MM format");
     }
 
+    public void taskInvalid() {
+        System.out.println("Task number specified is invalid, please enter 'list' to view current task(s)");
+    }
+
+    public void missingByClause(){
+        System.out.println("For deadline task, it is mandatory to specify /by before the date. For example '/by 2025-03-25'");
+    }
+
+    public void missingFromToClause(){
+        System.out.println("For event task, it is mandatory to specify /from and /to before the time. For example 'event project meeting /from 02:00/to 17:00'");
+    }
+
 }

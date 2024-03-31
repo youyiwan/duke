@@ -1,5 +1,6 @@
 package tasks;
 
+import exceptions.EuanExceptions;
 import parser.DatesTimes;
 
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.HashMap;
  */
 public class Deadline extends Task {
 
+    static EuanExceptions myEuanExceptions = new EuanExceptions();
     protected String by;
 
     public Deadline(String description, boolean isDone, String by) {
@@ -60,23 +62,35 @@ public class Deadline extends Task {
      * Creates and returns Deadline task.
      */
     public static String createDeadline(String line, boolean isSame){
-        int dividerFirstSpace = line.indexOf(' ');
-        int dividerBy = line.indexOf("/by ");
-        String taskDescription = line.substring(dividerFirstSpace, dividerBy);
-        String byDescription = line.substring(dividerBy).replace("/by ", "");
-        if(!byDescription.matches("\\d{4}-\\d{2}-\\d{2}")){
-            System.out.println("Please enter the deadline in yyyy-mm-dd format");
-            return "";
-        }
-        System.out.println(DatesTimes.getInitialReminder(byDescription));
-        Deadline d = new Deadline( taskDescription, isSame, DatesTimes.getDate(byDescription) ); // Create new object of Deadline class
-        TaskList.addTask(d); // Add object to Task[]
-        TaskList.taskMap.put(TaskList.getTaskCount(), d); // store deadline object in map
 
-        System.out.println(d.booleanToString(isSame));
-        return d.booleanToString(isSame);
+        try{
+            if ( !line.contains("/by")){
+                throw new EuanExceptions();
+            }
+            else {
+                int dividerFirstSpace = line.indexOf(' ');
+                int dividerBy = line.indexOf("/by ");
+                String taskDescription = line.substring(dividerFirstSpace, dividerBy);
+                String byDescription = line.substring(dividerBy).replace("/by ", "");
+                if(!byDescription.matches("\\d{4}-\\d{2}-\\d{2}")){
+                    System.out.println("Please enter the deadline in yyyy-mm-dd format");
+                    return "";
+                }
+                System.out.println(DatesTimes.getInitialReminder(byDescription));
+                Deadline d = new Deadline( taskDescription, isSame, DatesTimes.getDate(byDescription) ); // Create new object of Deadline class
+                TaskList.addTask(d); // Add object to Task[]
+                TaskList.taskMap.put(TaskList.getTaskCount(), d); // store deadline object in map
+
+                System.out.println(d.booleanToString(isSame));
+                return d.booleanToString(isSame);
+            }
+        } catch (EuanExceptions e) {
+            myEuanExceptions.missingByClause();
+        }
+
+        return "Failed to add deadline task";
     }
-    /**
+        /**
      * Serves as a reminder for the deadline task and prints the time left till deadline date.
      */
     public static void checkDeadline(){
