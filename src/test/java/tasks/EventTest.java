@@ -12,7 +12,6 @@ public class EventTest {
         boolean isSame = false;
 
         assertEquals("[E][ ] project meeting (from: 02 00 to: 17 00)",
-                            Event.createEvent(line, isSame)
-        );
+                            Event.createEvent(line, isSame));
     }
 }

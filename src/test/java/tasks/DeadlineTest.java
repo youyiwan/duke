@@ -11,7 +11,6 @@ public class DeadlineTest {
         boolean isSame = false;
 
         assertEquals("[D][ ] return book (by: Dec 01 2019)",
-                Deadline.createDeadline(line, isSame)
-        );
+                Deadline.createDeadline(line, isSame));
     }
 }
