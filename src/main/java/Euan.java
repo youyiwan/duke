@@ -39,39 +39,8 @@ public class Euan {
             {
 
                 line = myEuanUI.getInput();
-                int lineLength = line.length();
                 isSame = false;
-                if (line.equalsIgnoreCase("bye")) // 1. Exit application
-                {
-                    EuanUI.farewell();
-                    break;
-                }
-                ////// START OF EXCEPTION HANDLING //////
-                try {
-                    if(line.isEmpty() ) { // User enters empty string
-                        error = 1;
-                        throw new EuanExceptions(); // User starts with an unrecognize key word
-                    }
-                    else if ( lineLength < 4){
-                        error = 2;
-                        throw new EuanExceptions();
-                    }
-                    else if (!EuanUI.isKeyWord(line)){
-                        error = 2;
-                        throw new EuanExceptions();
-                    }
-                } catch (EuanExceptions e) {
-                    if (error == 1){
-                        myEuanExceptions.emptyStringError();
-                        continue;
-                    }
-                    else if (error == 2){
-                        myEuanExceptions.isRubbish();
-                        continue;
-                    }
-                }
-                ////// END OF EXCEPTION HANDLING //////
-
+                EuanExceptions.checkForExceptions(line);
                 //////// Start of Print & Save BLOCK /////////
                 String singleCommandline = line.substring(0,4).toLowerCase();
                 while(singleCommandline.contains("list" )|| singleCommandline.contains("save") ){
@@ -85,12 +54,17 @@ public class Euan {
                             break;
                     }
                     line = myEuanUI.getInput();
+                    EuanExceptions.checkForExceptions(line);
                     singleCommandline = line.toLowerCase();
                 }
                 //////// End of Print & Save BLOCK /////////
-
+                if (line.equalsIgnoreCase("bye")) // 1. Exit application
+                {
+                    EuanUI.farewell();
+                    break;
+                }
                 ////// START OF CHAT BOT INTERACTION //////
-                if( line.length() >= 4 &&  line.substring(0,4).equalsIgnoreCase("find") ){    // 3a. mark task as done
+                else if( line.length() >= 4 &&  line.substring(0,4).equalsIgnoreCase("find") ){    // 3a. mark task as done
                     String getDigits = line.substring(9);
                     String getMth = line.substring(5,8).toLowerCase();
                     DatesTimes.createMonth();;
@@ -144,11 +118,6 @@ public class Euan {
                         }
                         System.out.println("Now you have " + TaskList.getTaskCount() + " tasks in the list.");
                     }
-                }
-                if (line.equalsIgnoreCase("bye")) // 1. Exit application
-                {
-                    EuanUI.farewell();
-                    break;
                 }
                 ////// End OF CHAT BOT INTERACTION //////
                 ///// Start of Reminders //////

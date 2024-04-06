@@ -1,6 +1,7 @@
 package tasks;
 
 import exceptions.EuanExceptions;
+import parser.DatesTimes;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -167,11 +168,36 @@ public class TaskList{
      */
     public boolean checkDuplicates(String line, boolean isSame){
         int dividerFirstSpace = line.indexOf(' ');
+        String taskType = line.toLowerCase();
         for (HashMap.Entry<Integer, Task> entry : taskMap.entrySet() ){
-            String str1 = entry.getValue().description;
-            isSame = str1.equals(line.substring(dividerFirstSpace));
-            if (isSame){
-                break;
+            String str1 = String.valueOf(entry.getValue());
+//            System.out.println(str1);
+            if (taskType.contains("todo")){
+                String str2 = entry.getValue().description;
+                if ( str2.equals(line.substring(dividerFirstSpace)) ){
+                    isSame = true;
+                    break;
+                }
+            }
+            else if ( taskType.contains("deadline") ) {
+                int dividerBy = line.indexOf("/by ");
+                String taskDescription = line.substring(dividerFirstSpace, dividerBy);
+                String byDescription = line.substring(dividerBy).replace("/by ", "");
+                if ( str1.contains(taskDescription) && str1.contains("(by: "+DatesTimes.getDate(byDescription)+")") ){
+                    isSame = true;
+                    break;
+                }
+            }
+            else {
+                int dividerFrom = line.indexOf("/from ");
+                int dividerTo = line.indexOf("/to ");
+                String taskDescription = line.substring(dividerFirstSpace, dividerFrom);
+                String from = line.substring(dividerFrom, dividerTo).replace("/from ", "");;
+                String to = line.substring(dividerTo).replace("/to ", "");
+                if( str1.contains(taskDescription) && str1.contains("(from: "+DatesTimes.getDateTime(from)+" to: "+DatesTimes.getDateTime(to))  ) {
+                    isSame = true;
+                    break;
+                }
             }
         }
         return isSame;
