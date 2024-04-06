@@ -41,14 +41,15 @@ public class Euan {
                 line = myEuanUI.getInput();
                 isSame = false;
                 EuanExceptions.checkForExceptions(line);
+
                 if (line.equalsIgnoreCase("bye")) // 1. Exit application
                 {
                     EuanUI.farewell();
                     break;
                 }
                 //////// Start of Print & Save BLOCK /////////
-                String singleCommandline = line.substring(0,4).toLowerCase();
-                while(singleCommandline.contains("list" )|| singleCommandline.contains("save") ){
+                while(line.contains("list" )|| line.contains("save") ){
+                    String singleCommandline = line.substring(0,4).toLowerCase();
                     switch (singleCommandline) {
                         case ("list"):
                             myStorage.printlist();

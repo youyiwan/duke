@@ -43,7 +43,7 @@ public class EuanExceptions extends Exception{
      * Returns a message to inform user that an empty task is entered.
      */
     public static void emptyStringError(){
-        System.out.println ("Congratulations! 😂 You have created in an empty task. There is nothing for you to do.");
+        System.out.println ("Congratulations! You have created in an empty task. There is nothing for you to do.");
         System.out.println("If this is a typo. Please try again.");
     }
 
