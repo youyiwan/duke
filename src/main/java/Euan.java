@@ -1,12 +1,16 @@
+import exceptions.EuanExceptions;
 import parser.DatesTimes;
+import storage.Storage;
 import tasks.Deadline;
 import tasks.Event;
-import tasks.Todo;
 import tasks.TaskList;
+import tasks.Todo;
 import ui.EuanUI;
-import exceptions.EuanExceptions;
-import storage.Storage;
+
 public class Euan {
+
+
+
     static TaskList myTaskList = new TaskList();
     static EuanUI myEuanUI = new EuanUI();
     static EuanExceptions myEuanExceptions = new EuanExceptions();
@@ -110,8 +114,7 @@ public class Euan {
                     }
                     else { // 7. if false create new entry
                         int dividerFirstSpace = line.indexOf(' ');
-                        if (line.substring(0,dividerFirstSpace).equalsIgnoreCase("deadline"))
-                        {
+                        if (line.substring(0,dividerFirstSpace).equalsIgnoreCase("deadline")) {
                                 String result = Deadline.createDeadline(line, isSame);
                                 if ( result.isEmpty()){
                                     System.out.println("No task added");
@@ -123,8 +126,7 @@ public class Euan {
                                     System.out.println("Got it. I've added this task:");
                                 }
                         }
-                        else if (line.substring(0,dividerFirstSpace).equalsIgnoreCase("event"))
-                        {
+                        else if (line.substring(0,dividerFirstSpace).equalsIgnoreCase("event")) {
                               String result = Event.createEvent(line, isSame);
                                 if ( result.isEmpty()){
                                     System.out.println("No task added");
@@ -158,6 +160,8 @@ public class Euan {
 
 
         }
+
+
 
 }
 

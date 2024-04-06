@@ -3,7 +3,11 @@ package tasks;
 import exceptions.EuanExceptions;
 import parser.DatesTimes;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashMap;
+
+
 /**
  * Deadline class is a specific class that inherits from the Task class
  * It inherits two main attributes: (1) general description of the task (2) whether the task is mark as done or not
@@ -23,20 +27,23 @@ public class Deadline extends Task {
 
 
     /**
-     * Overwrites the method markAsDone() from Task class. From "[X]" to "[D][X]" .
+     * Overwrites the method markAsDone() from Task class.
+     * @return the task subclass deadline symbol and mark as done symbol, from "[X]" to "[D][X]".
      */
     @Override
     public String markAsDone(){
         return "[D][X]";
     }
     /**
-     * Overwrites the method markAsNotDone() from Task class. From "[ ]" to "[D][ ]" .
+     * Overwrites the method markAsNotDone() from Task class. From "[ ]" to "[D][ ]".
+     * @return the task subclass deadline symbol and not done symbol, from "[ ]" to "[D][ ]".
      */
     public String markAsNotDone(){
         return "[D][ ]";
     }
     /**
      * Concatenates all the attributes of Deadline task.
+     * @return the task subclass and mark as done symbol, description and by deadline date.
      */
     public String toString() {
         if (isDone)
@@ -60,18 +67,21 @@ public class Deadline extends Task {
     }
     /**
      * Creates and returns Deadline task.
+     * @return the deadline object, return the null string if date format does not match
+     * @throws EuanExceptions if the '/by' clause is missing
      */
     public static String createDeadline(String line, boolean isSame){
+        int dividerFirstSpace = line.indexOf(' ');
+        int dividerBy = line.indexOf("/by ");
+        String taskDescription = line.substring(dividerFirstSpace, dividerBy);
+        String byDescription = line.substring(dividerBy).replace("/by ", "");
+
 
         try{
             if ( !line.contains("/by")){
                 throw new EuanExceptions();
             }
             else {
-                int dividerFirstSpace = line.indexOf(' ');
-                int dividerBy = line.indexOf("/by ");
-                String taskDescription = line.substring(dividerFirstSpace, dividerBy);
-                String byDescription = line.substring(dividerBy).replace("/by ", "");
                 if(!byDescription.matches("\\d{4}-\\d{2}-\\d{2}")){
                     System.out.println("Please enter the deadline in yyyy-mm-dd format");
                     return "";
@@ -80,7 +90,6 @@ public class Deadline extends Task {
                 Deadline d = new Deadline( taskDescription, isSame, DatesTimes.getDate(byDescription) ); // Create new object of Deadline class
                 TaskList.addTask(d); // Add object to Task[]
                 TaskList.taskMap.put(TaskList.getTaskCount(), d); // store deadline object in map
-
                 System.out.println(d.booleanToString(isSame));
                 return d.booleanToString(isSame);
             }
@@ -90,7 +99,7 @@ public class Deadline extends Task {
 
         return "Failed to add deadline task";
     }
-        /**
+    /**
      * Serves as a reminder for the deadline task and prints the time left till deadline date.
      */
     public static void checkDeadline(){

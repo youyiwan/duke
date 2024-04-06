@@ -35,9 +35,6 @@ public class EuanExceptions extends Exception{
         System.out.println ("#8: 'Bye': To exit.");
     }
 
-//    public static String dateFormat() {
-//        return "Please enter the deadline in yyyy-mm-dd format";
-//    }
 
     public void timeFormat() {
         System.out.println("Please enter the time in HH:MM format");

@@ -13,6 +13,7 @@ public class Todo extends Task {
     }
     /**
      * Overwrites the method markAsDone() from Task class. From "[X]" to "[T][X]" .
+     * @return the task subclass todo symbol and mark as done symbol, from "[X]" to "[T][X]".
      */
     @Override
     public String markAsDone(){
@@ -20,12 +21,14 @@ public class Todo extends Task {
     }
     /**
      * Overwrites the method markAsNotDone() from Task class. From "[ ]" to "[T][ ]" .
+     * @return the task subclass todo symbol and not done symbol, from "[ ]" to "[T][ ]".
      */
     public String markAsNotDone(){
         return "[T][ ]";
     }
     /**
      * Concatenates all the attributes of Deadline task.
+     * @return the task subclass and mark as done symbol and description
      */
     public String toString() {
         if (isDone)
@@ -44,6 +47,7 @@ public class Todo extends Task {
     }
     /**
      * Creates and returns todo task.
+     * @return the todo object.
      */
     public static String createTodo(String line, boolean isSame){
         int dividerFirstSpace = line.indexOf(' ');

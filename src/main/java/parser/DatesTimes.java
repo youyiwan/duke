@@ -1,10 +1,9 @@
 package parser;
 
 import exceptions.EuanExceptions;
-import java.time.LocalDate;
-import java.time.Period;
+
+import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 /**
@@ -39,6 +38,7 @@ public class DatesTimes {
 
         /**
          * Returns the date in MMM dd yyyy format.
+         * @return the specified date format
          */
         public static String getDate(String byDescription) {
 //            System.out.println(myDate.getDayOfWeek());
@@ -49,12 +49,29 @@ public class DatesTimes {
 
             LocalDate myDate = LocalDate.parse(byDescription);
             return myDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+
         }
         /**
-         * Returns the time in HH mm format.
+         * Checks if the time duration specified is valid.
          */
-        public static  String getDateTime (String to){
-            LocalTime myTime = LocalTime.parse(to);
+        public static  void checkDuration (String from, String to) {
+            LocalTime myTimeFrom = LocalTime.parse(from);
+            LocalTime myTimeTo = LocalTime.parse(to);
+            Duration myDuration = Duration.between(myTimeFrom, myTimeTo);
+
+            assert !myDuration.isNegative() : "Event time specified is incorrect.";
+            assert !myDuration.isZero() : "Event time specified is incorrect.";
+
+        }
+
+        /**
+         * Returns the time in HH mm format.
+         * @return the specified time format
+         */
+        public static  String getDateTime (String toFrom){
+
+            LocalTime myTime = LocalTime.parse(toFrom);
+
             try {
                 return myTime.format(DateTimeFormatter.ofPattern("HH mm"));
             } catch (DateTimeParseException e){
@@ -64,13 +81,17 @@ public class DatesTimes {
         }
 
         /**
-         * Returns a message remind the user of the due date when the task is first recorded.
+         * Returns the different types of reminder message depending on the time left
+         * Checks if the date specified is a historical date
+         * @return a message remind the user of the due date when the task is first recorded.
          */
         public static String getInitialReminder(String byDescription){
 
             LocalDate myDate = LocalDate.parse(byDescription);
             myDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             Period dateRange = Period.between(LocalDate.now(),myDate);
+
+            assert !dateRange.isNegative() : "Date specified is a historical date.";
 
             if(dateRange.getDays() < 3 && (dateRange.getMonths() == 0) && (dateRange.getYears() == 0) ){
                 return "Caution ⚠: This task is due in less than 3 days";
@@ -82,13 +103,12 @@ public class DatesTimes {
                         + dateRange.getYears() + " year(s), "
                         + "to complete this task";
             }
-
-
         }
 
         /**
          * Returns a message remind the user of the due date each time a task is recorded.
          * Serves as a subsequent reminder.
+         * @return a message remind the user of the due date when the task is first recorded.
          */
         public static String getRegularReminder(String checkDate) {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
@@ -106,6 +126,7 @@ public class DatesTimes {
                         + "to complete this task";
             }
         }
+
 
 
 

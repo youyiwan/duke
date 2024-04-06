@@ -23,19 +23,22 @@ public class Event extends Task {
     }
     /**
      * Overwrites the method markAsDone() from Task class. From "[X]" to "[E][X]" .
+     * @return the task subclass event symbol and mark as done symbol, from "[X]" to "[E][X]".
      */
     @Override
     public String markAsDone(){
         return "[E][X]";
     }
     /**
-     * Overwrites the method markAsNotDone() from Task class. From "[ ]" to "[E][ ]" .
+     * Overwrites the method markAsNotDone() from Task class. From "[ ]" to "[E][ ]".
+     * @return the task subclass event symbol and not done symbol, from "[ ]" to "[E][ ]".
      */
     public String markAsNotDone(){
         return "[E][ ]";
     }
     /**
-     * Concatenates all the attributes of Deadline task.
+     * Concatenates all the attributes of event task.
+     * @return the task subclass and mark as done symbol, description and to & from time.
      */
     public String toString() {
         if (isDone)
@@ -63,6 +66,8 @@ public class Event extends Task {
     }
     /**
      * Creates and returns event task.
+     * @return the event object, return the null string if the time format does not match
+     * @throws EuanExceptions if the '/to ' and '/from' clause is missing
      */
     public static String createEvent(String line, boolean isSame){
 
@@ -87,6 +92,7 @@ public class Event extends Task {
                         return "";
                     }
                 }
+                DatesTimes.checkDuration(from, to);
                 Event e = new Event( taskDescription, isSame, DatesTimes.getDateTime(from), DatesTimes.getDateTime(to) ); // Create new object of Deadline class
                 TaskList.addTask(e); // Add object to Task[]
                 TaskList.taskMap.put(TaskList.getTaskCount(), e); // store deadline object in map

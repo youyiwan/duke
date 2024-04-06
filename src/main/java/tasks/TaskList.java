@@ -54,8 +54,7 @@ public class TaskList{
         if(taskMap.containsKey(Integer.valueOf(words[1])))
         {
             for (HashMap.Entry<Integer, Task> entry : taskMap.entrySet()){
-                if(entry.getKey().equals(Integer.valueOf(words[1])))
-                {
+                if(entry.getKey().equals(Integer.valueOf(words[1]))) {
                     System.out.println("Good job! I've marked this task as done ✅ :");
                     if(entry.getValue().markAsDone().startsWith("[D]")){   // Here you need to check if its deadline, event or todo
                         Deadline d = new Deadline( entry.getValue().getDescription(), isDone, entry.getValue().getBy());
@@ -86,8 +85,7 @@ public class TaskList{
         // check if key exist if not prompt user to check the task again
         if(TaskList.taskMap.containsKey(Integer.valueOf(words[1]))){
             for (HashMap.Entry<Integer, Task> entry : TaskList.taskMap.entrySet()){
-                if(entry.getKey().equals(Integer.valueOf(words[1])) )
-                {
+                if(entry.getKey().equals(Integer.valueOf(words[1])) ) {
                     System.out.println("OK, I've marked this task as not done yet");
                     if(entry.getValue().markAsDone().startsWith("[D]")){   // Here you need to check if its deadline, event or ...
                         Deadline d = new Deadline( entry.getValue().getDescription(), isDone, entry.getValue().getBy());
@@ -112,6 +110,7 @@ public class TaskList{
     }
     /**
      * This method loops through the task list and deletes the task as done if found.
+     * @throws EuanExceptions if the task id is invalid
      */
     public void deleteTask(String line){
         int dividerFirstSpace = line.indexOf(' ');
@@ -136,8 +135,7 @@ public class TaskList{
                     taskMap.remove(initialTaskSize);
                     updateTaskCount(-1); // decrement task count
                 }
-                else if (deleteKey == 1 && initialTaskSize == 2) // Scenario where you delete a task that is not the last on the list resulting in only 1 task left
-                {
+                else if (deleteKey == 1 && initialTaskSize == 2) {// Scenario where you delete a task that is not the last on the list resulting in only 1 task left
                     taskMap.put(1, taskMap.get(initialTaskSize));
 //            System.out.println(taskMap.get(taskMap.size()));
                     for (int i=2; i<=100; i++){
@@ -162,13 +160,10 @@ public class TaskList{
         }
 
 
-
-
-
-
     }
     /**
      * This method loops through the task list and checks for duplicates.
+     * @return true if duplicate and false otherwise
      */
     public boolean checkDuplicates(String line, boolean isSame){
         int dividerFirstSpace = line.indexOf(' ');

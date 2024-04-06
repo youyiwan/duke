@@ -19,7 +19,9 @@ import static tasks.TaskList.taskMap;
 public class Storage {
 
     /**
-     * Save the task list to a predefined flat file save in "data/Euan.txt" while at the same time prints the task list.
+     * Save the task list to a predefined flat file save in "data/Euan.txt".
+     * Prints task list.
+     * @throws IOException
      */
     public void save(){
         if (taskMap.isEmpty()){
