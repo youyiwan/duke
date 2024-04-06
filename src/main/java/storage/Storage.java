@@ -28,7 +28,8 @@ public class Storage {
             System.out.println("There are no task currently.");
         }
         else {
-            File f = new File("data/Euan.txt");
+//            File f = new File("data/Euan.txt");
+            File f = new File("Euan.txt");
             System.out.println("This is your file path: " + f.getAbsolutePath());
             System.out.println("file exists?: " + f.exists());
             try {
