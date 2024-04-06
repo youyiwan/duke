@@ -116,7 +116,7 @@ public class DatesTimes {
 
             Period dateRange = Period.between(LocalDate.now(), TargetDate);
             if(dateRange.getDays() < 3 && (dateRange.getMonths() == 0) && (dateRange.getYears() == 0) ){
-                return "Caution ⚠: This task is due in less than 3 days";
+                return "Caution: This task is due in less than 3 days";
             }
             else {
                 return "Reminder: You have "
