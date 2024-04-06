@@ -39,11 +39,11 @@ public class EuanUI {
 
     public void greetings(){
         String name = "Euan";
-        System.out.println("Hello! 😄 I'm " + name+"\n"+"What can I do for you?");
+        System.out.println("Hello! I'm " + name+"\n"+"What can I do for you?");
     }
 
     public static String farewell(){
-        System.out.println("Bye. 👋 Hope to see you again soon!");
+        System.out.println("Bye. Hope to see you again soon!");
         return "Bye. Hope to see you again soon!";
     }
 
