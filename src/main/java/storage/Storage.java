@@ -1,7 +1,9 @@
 package storage;
+
 import parser.DatesTimes;
 import tasks.Deadline;
 import tasks.TaskList;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -10,6 +12,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 import static tasks.TaskList.taskMap;
+
 /**
  * All printing of tasks and writing to the file associated methods are in the storage class.
  * It has two public methods print and save.
@@ -21,13 +24,13 @@ public class Storage {
     /**
      * Save the task list to a predefined flat file save in "data/Euan.txt".
      * Prints task list.
-     * @throws IOException
+     *
+     * @throws IOException if there are input and output errors
      */
-    public void save(){
-        if (taskMap.isEmpty()){
+    public void save() {
+        if (taskMap.isEmpty()) {
             System.out.println("There are no task currently.");
-        }
-        else {
+        } else {
 //            File f = new File("data/Euan.txt");
             File f = new File("Euan.txt");
             System.out.println("This is your file path: " + f.getAbsolutePath());
@@ -39,10 +42,9 @@ public class Storage {
                 System.out.println("Your task(s) as of " + LocalDate.now() + "\n");
                 bf.write("Your task(s) as of " + LocalDate.now() + "\n");
                 for (HashMap.Entry<Integer, tasks.Task> entry : taskMap.entrySet()) {
-                    if(entry.getKey() == null || entry.getValue() == null){
+                    if (entry.getKey() == null || entry.getValue() == null) {
                         break;
-                    }
-                    else {
+                    } else {
                         System.out.println(entry.getKey() + "." + entry.getValue());
                         bf.write(entry.getKey() + "." + entry.getValue().toString());
                         bf.newLine();
@@ -68,8 +70,7 @@ public class Storage {
                 }
                 bf.write("--------------------------------------  End of Reminder  ------------------------------------- \n");
                 bf.close();
-            }
-            catch (
+            } catch (
                     IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
             }
@@ -77,22 +78,21 @@ public class Storage {
 
 
     }
+
     /**
      * Prints the task list.
      */
-    public void printlist(){
-        if (taskMap.isEmpty()){
+    public void printlist() {
+        if (taskMap.isEmpty()) {
             System.out.println("There are no task currently.");
-        }
-        else {
+        } else {
             System.out.println("Your task(s) as of " + LocalDate.now() + "\n");
             for (HashMap.Entry<Integer, tasks.Task> entry : taskMap.entrySet()) {
                 if (entry.getKey() == null || entry.getValue() == null) {
                     break;
-                }
-                else System.out.println(entry.getKey() + "." + entry.getValue());
+                } else System.out.println(entry.getKey() + "." + entry.getValue());
             }
-            System.out.println( "\n");
+            System.out.println("\n");
             Deadline.checkDeadline();
         }
 
